@@ -1,0 +1,5005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechStart - Learn Tech From Zero, at Your Own Pace</title>
+  <meta name="description" content="A friendly, jargon-free tech learning platform for absolute beginners. Learn web development, Python, cybersecurity, and AI fundamentals step by step.">
+  <style>
+    /* CSS Variables & Theming */
+    :root {
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #ffffff;
+      --bg-surface-subtle: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+      --border-color: #e2e8f0;
+      --border-hover: #cbd5e1;
+      
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      
+      --accent: #f59e0b;
+      --accent-light: #fef3c7;
+      --accent-text: #b45309;
+      
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --success-text: #065f46;
+      
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-full: 9999px;
+      
+      --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #090d16;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1e293b;
+      --bg-surface-subtle: #172033;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --text-subtle: #94a3b8;
+      --border-color: #273549;
+      --border-hover: #374761;
+      
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --primary-light: rgba(59, 130, 246, 0.15);
+      --primary-border: rgba(59, 130, 246, 0.3);
+      
+      --accent: #fbbf24;
+      --accent-light: rgba(251, 191, 36, 0.15);
+      --accent-text: #fde68a;
+      
+      --success: #34d399;
+      --success-light: rgba(52, 211, 153, 0.15);
+      --success-text: #a7f3d0;
+      
+      --danger: #f87171;
+      --danger-light: rgba(248, 113, 113, 0.15);
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Reset & Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Accessibility Focus Outline */
+    :focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    /* Layout Containers */
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-spacing {
+      padding: 5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .section-spacing {
+        padding: 3.5rem 0;
+      }
+    }
+
+    /* Typography Utilities */
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 1.85rem;
+      }
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--bg-surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    [data-theme="dark"] .navbar {
+      background-color: rgba(17, 24, 39, 0.85);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.25rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+      padding: 0.4rem 0.2rem;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.65rem 1.35rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-surface-subtle);
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border-color);
+      transform: translateY(-1px);
+    }
+
+    /* Segmented Theme Switcher */
+    .theme-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+      user-select: none;
+    }
+
+    .theme-switch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-switch-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .theme-switch-btn.active {
+      background: var(--bg-surface);
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] .theme-switch-btn.active {
+      background: var(--bg-surface-elevated);
+      color: #38bdf8;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Auth Buttons & User Profile Badge */
+    .nav-auth-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-signin {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      font-weight: 600;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+    }
+
+    .btn-signin:hover {
+      background: var(--bg-surface-subtle);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.3rem 0.6rem 0.3rem 0.3rem;
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-full);
+    }
+
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #10b981);
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .btn-signout {
+      background: transparent;
+      border: none;
+      color: var(--text-subtle);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0 0.3rem;
+    }
+
+    .btn-signout:hover {
+      color: var(--danger);
+    }
+
+    /* Auth Modal Specifics */
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .auth-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .social-auth-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--border-color);
+      border-color: var(--border-hover);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 1.25rem 0;
+      color: var(--text-subtle);
+      font-size: 0.85rem;
+    }
+
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .auth-divider::before { margin-right: 0.75rem; }
+    .auth-divider::after { margin-left: 0.75rem; }
+
+    .form-group {
+      margin-bottom: 1.15rem;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text-main);
+    }
+
+    .input-with-icon {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-subtle);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+      background: var(--bg-surface);
+    }
+
+    .toggle-password-btn {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-subtle);
+      cursor: pointer;
+      padding: 0.25rem;
+      font-size: 1rem;
+    }
+
+    /* Toast Notification */
+    .toast-notification {
+      position: fixed;
+      top: 5rem;
+      right: 1.5rem;
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--success);
+      border-left: 5px solid var(--success);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xl);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast-notification.show {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    /* Mobile Nav Drawer */
+    @media (max-width: 900px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .mobile-only-action {
+        display: block !important;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 4.25rem;
+        left: 0;
+        right: 0;
+        background: var(--bg-surface);
+        border-bottom: 1px solid var(--border-color);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+      }
+
+      .nav-links.is-open {
+        transform: translateY(0);
+      }
+      
+      .nav-auth-group {
+        display: none;
+      }
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 4.5rem 0 5.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+      }
+      
+      .hero-actions {
+        justify-content: center;
+      }
+      
+      .hero-trust-badges {
+        justify-content: center;
+      }
+    }
+
+    .hero-title {
+      font-size: 3.25rem;
+      font-weight: 850;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+      color: var(--text-main);
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.4rem;
+      }
+    }
+
+    .hero-lead {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-trust-badges {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-subtle);
+    }
+
+    .trust-item svg {
+      color: var(--success);
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Hero Interactive Card Mockup */
+    .hero-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background-color: #ef4444; }
+    .dot.yellow { background-color: #f59e0b; }
+    .dot.green { background-color: #10b981; }
+
+    .card-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-full);
+    }
+
+    .hero-snippet {
+      background: var(--bg-surface-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .code-comment { color: var(--text-subtle); }
+    .code-keyword { color: #8b5cf6; font-weight: 600; }
+    .code-string { color: #10b981; }
+    .code-func { color: #2563eb; }
+
+    .hero-snippet-run-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .hero-snippet-run-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .hero-output-box {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--success-light);
+      border: 1px solid var(--success);
+      color: var(--success-text);
+      font-size: 0.9rem;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Learning Paths Section */
+    .paths-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .path-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .path-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary);
+    }
+
+    .path-icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.6rem;
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .path-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .path-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .path-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+
+    .meta-tag.difficulty {
+      background: var(--success-light);
+      color: var(--success-text);
+    }
+
+    .meta-tag.time {
+      background: var(--bg-surface-subtle);
+      color: var(--text-subtle);
+    }
+
+    .path-card .btn {
+      width: 100%;
+    }
+
+    /* Dedicated Learning Path Sections & Deep Dives */
+    .path-jump-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 2.75rem auto 1rem auto;
+      max-width: 960px;
+    }
+
+    .path-jump-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .path-jump-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .path-jump-btn.active-pill {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .dedicated-path-section {
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .path-banner {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .path-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+    }
+
+    .path-banner.theme-web::before { background: #2563eb; }
+    .path-banner.theme-python::before { background: #10b981; }
+    .path-banner.theme-cyber::before { background: #f59e0b; }
+    .path-banner.theme-ai::before { background: #8b5cf6; }
+
+    .path-banner-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .path-heading-group {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    .path-big-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .path-big-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    @media (max-width: 640px) {
+      .path-big-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    .path-banner-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 820px;
+      margin-bottom: 1.5rem;
+    }
+
+    .path-stats-pills {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 0.35rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Modules Grid */
+    .modules-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .module-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .module-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .module-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .module-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1.1rem;
+    }
+
+    .lesson-rows {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      flex-grow: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .lesson-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-subtle);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .lesson-row:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    .lesson-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .lesson-index {
+      font-weight: 700;
+      color: var(--text-subtle);
+      font-size: 0.8rem;
+    }
+
+    .lesson-meta {
+      font-size: 0.78rem;
+      color: var(--text-subtle);
+      flex-shrink: 0;
+    }
+
+    /* Path Capstone & Interactive Box */
+    .path-interactive-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 860px) {
+      .path-interactive-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .capstone-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .capstone-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 0.85rem;
+      width: fit-content;
+    }
+
+    .capstone-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.65rem;
+    }
+
+    .capstone-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+
+    .path-micro-tool {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tool-header {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tool-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    /* How It Works Section */
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      position: relative;
+    }
+
+    @media (max-width: 860px) {
+      .steps-container {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+    }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.75rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .step-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--radius-full);
+      font-weight: 800;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .step-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .reassurance-callout {
+      margin-top: 3.5rem;
+      background: linear-gradient(135deg, var(--primary-light), var(--bg-surface));
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .reassurance-callout {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .reassurance-icon {
+      font-size: 2.25rem;
+      flex-shrink: 0;
+    }
+
+    .reassurance-text h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+
+    .reassurance-text p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Sample Lesson Preview Section */
+    .interactive-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .interactive-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-surface-subtle);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      background: var(--bg-surface);
+      border-bottom-color: var(--primary);
+    }
+
+    .tab-pane {
+      display: none;
+      padding: 2rem;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Live HTML Editor */
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    @media (max-width: 800px) {
+      .editor-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .editor-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor-column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .code-editor-textarea {
+      width: 100%;
+      height: 230px;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      border: 1px solid var(--border-color);
+      resize: vertical;
+      outline: none;
+    }
+
+    .code-editor-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .preview-container {
+      width: 100%;
+      height: 230px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      padding: 1.5rem;
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .editor-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .preset-chip {
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .preset-chip:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* Quiz Tab */
+    .quiz-box {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .quiz-question {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-option-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-subtle);
+      border: 2px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .quiz-option-btn:hover {
+      border-color: var(--primary);
+      background: var(--bg-surface);
+    }
+
+    .quiz-option-btn.correct {
+      border-color: var(--success);
+      background: var(--success-light);
+      color: var(--success-text);
+      font-weight: 600;
+    }
+
+    .quiz-option-btn.wrong {
+      border-color: var(--danger);
+      background: var(--danger-light);
+      opacity: 0.7;
+    }
+
+    .quiz-feedback {
+      display: none;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeIn 0.25s ease;
+    }
+
+    /* Beginner Glossary Section */
+    .glossary-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-wrapper {
+      position: relative;
+      max-width: 580px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.85rem 1.25rem 0.85rem 2.85rem;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-subtle);
+      pointer-events: none;
+    }
+
+    .glossary-filter-tags {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .glossary-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .glossary-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .glossary-term-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .glossary-term {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .glossary-cat {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-surface-subtle);
+      color: var(--text-subtle);
+    }
+
+    .glossary-def {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .no-results-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-subtle);
+      font-size: 1.1rem;
+    }
+
+    /* Progress Tracker Section */
+    .tracker-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .progress-bar-container {
+      margin-bottom: 2rem;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background: var(--bg-surface-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #10b981);
+      border-radius: var(--radius-full);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .check-item:hover {
+      border-color: var(--primary);
+    }
+
+    .check-item.completed {
+      background: var(--success-light);
+      border-color: var(--success);
+    }
+
+    .check-item.completed .check-label {
+      text-decoration: line-through;
+      color: var(--success-text);
+    }
+
+    .custom-checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--text-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+      background: var(--bg-surface);
+    }
+
+    .check-item.completed .custom-checkbox {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+
+    .check-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+
+    .tracker-celebration {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: var(--accent-light);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-md);
+      color: var(--accent-text);
+      text-align: center;
+      font-weight: 600;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tracker-footer-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+    }
+
+    /* FAQ Section */
+    .faq-list {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item:hover {
+      border-color: var(--border-hover);
+    }
+
+    .faq-question-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1.25rem 1.5rem;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .faq-icon {
+      transition: transform 0.25s ease;
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-size: 0.98rem;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    /* Footer Section */
+    .footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      padding: 4.5rem 0 2.5rem 0;
+      margin-top: 3rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1.25fr;
+      gap: 3rem;
+      margin-bottom: 3.5rem;
+    }
+
+    @media (max-width: 860px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      max-width: 320px;
+    }
+
+    .footer-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+    }
+
+    /* Newsletter Box */
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .newsletter-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-body);
+      color: var(--text-main);
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    .newsletter-input:focus {
+      border-color: var(--primary);
+    }
+
+    .newsletter-feedback {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+    }
+
+    /* Modal for Learning Path Details */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.is-open {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-box {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-xl);
+      max-width: 560px;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-subtle);
+      transition: color 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-main);
+    }
+
+    .modal-path-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .syllabus-list {
+      list-style: none;
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .syllabus-item {
+      padding: 0.75rem 1rem;
+      background: var(--bg-surface-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .syllabus-num {
+      width: 24px;
+      height: 24px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Floating Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-full);
+      background: var(--primary);
+      color: white;
+      border: none;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      z-index: 900;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-2px);
+      background: var(--primary-hover);
+    }
+    /* ===== AI Chat Widget ===== */
+    .ai-chat-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 2000;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(124, 58, 237, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-size: 1.55rem;
+    }
+    .ai-chat-fab:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.55);
+    }
+    .ai-chat-fab .fab-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--bg-body);
+    }
+
+    .ai-chat-panel {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 2rem;
+      z-index: 2000;
+      width: 360px;
+      max-height: 520px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.92) translateY(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease;
+    }
+    .ai-chat-panel.is-open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    @media (max-width: 500px) {
+      .ai-chat-panel {
+        right: 0.75rem;
+        left: 0.75rem;
+        width: auto;
+        bottom: 5rem;
+      }
+    }
+
+    .ai-chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      flex-shrink: 0;
+    }
+    .ai-chat-header-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .ai-chat-header-info { flex: 1; }
+    .ai-chat-header-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.2;
+    }
+    .ai-chat-header-status {
+      font-size: 0.75rem;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .ai-chat-header-status::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+    }
+    .ai-chat-close-btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .ai-chat-close-btn:hover { background: rgba(255,255,255,0.3); }
+
+    .ai-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1rem 0.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      scroll-behavior: smooth;
+    }
+    .ai-chat-messages::-webkit-scrollbar { width: 4px; }
+    .ai-chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .ai-chat-messages::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+
+    .chat-msg {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      max-width: 100%;
+    }
+    .chat-msg.user { flex-direction: row-reverse; }
+    .chat-msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .chat-msg.bot .chat-msg-avatar {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+    }
+    .chat-msg.user .chat-msg-avatar {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+    }
+    .chat-msg-bubble {
+      max-width: 78%;
+      padding: 0.6rem 0.85rem;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+    .chat-msg.bot .chat-msg-bubble {
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-top-left-radius: 4px;
+    }
+    .chat-msg.user .chat-msg-bubble {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      border-top-right-radius: 4px;
+    }
+    .chat-msg.error .chat-msg-bubble {
+      background: var(--danger-light);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    .chat-typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .chat-typing-dots {
+      display: flex;
+      gap: 4px;
+      padding: 0.6rem 0.85rem;
+      background: var(--bg-surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      border-top-left-radius: 4px;
+    }
+    .chat-typing-dots span {
+      width: 7px;
+      height: 7px;
+      background: var(--text-subtle);
+      border-radius: 50%;
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .chat-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    .ai-chat-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0 1rem 0.75rem 1rem;
+    }
+    .ai-chat-suggestion-btn {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-full);
+      background: var(--primary-light);
+      color: var(--primary);
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .ai-chat-suggestion-btn:hover { background: var(--primary-border); }
+
+    .ai-chat-input-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      flex-shrink: 0;
+    }
+    .ai-chat-textarea {
+      flex: 1;
+      resize: none;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.55rem 0.8rem;
+      font-size: 0.9rem;
+      font-family: var(--font-family);
+      background: var(--bg-surface-subtle);
+      color: var(--text-main);
+      outline: none;
+      max-height: 100px;
+      overflow-y: auto;
+      line-height: 1.5;
+      transition: border-color 0.2s;
+    }
+    .ai-chat-textarea:focus { border-color: var(--primary); }
+    .ai-chat-send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .ai-chat-send-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .ai-chat-send-btn:not(:disabled):hover { transform: scale(1.08); }
+    .ai-chat-model-tag {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-subtle);
+      padding: 0.2rem 0 0.4rem;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar" role="banner">
+    <div class="container nav-container">
+      <a href="#hero" class="logo" aria-label="TechStart Home">
+        <div class="logo-icon">
+          <!-- Rocket Sparkle SVG Icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+          </svg>
+        </div>
+        <span>TechStart</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks" role="navigation" aria-label="Main Navigation">
+        <li><a href="#paths" class="nav-link">Learning Paths</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#preview" class="nav-link">Try a Lesson</a></li>
+        <li><a href="#glossary" class="nav-link">Beginner Glossary</a></li>
+        <li><a href="#tracker" class="nav-link">Progress Tracker</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        
+        <!-- Mobile Drawer Auth Actions -->
+        <li class="mobile-only-action" style="display: none; padding-top: 0.75rem; border-top: 1px solid var(--border-color); width: 100%;">
+          <div style="display: flex; gap: 0.75rem; flex-direction: column; width: 100%;">
+            <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openAuthModal('signin'); closeMobileMenu();">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+              <span>Sign In</span>
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Segmented Light / Dark Mode Toggle -->
+        <div class="theme-switcher" role="radiogroup" aria-label="Theme Mode Selection">
+          <button type="button" class="theme-switch-btn active" id="themeLightBtn" onclick="setThemeMode('light')" aria-label="Switch to Light Mode" title="Light Mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+            <span>Light</span>
+          </button>
+          <button type="button" class="theme-switch-btn" id="themeDarkBtn" onclick="setThemeMode('dark')" aria-label="Switch to Dark Mode" title="Dark Mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+            <span>Dark</span>
+          </button>
+        </div>
+
+        <!-- Auth Actions (Sign In) -->
+        <div class="nav-auth-group" id="navAuthLoggedOut">
+          <button type="button" class="btn btn-primary" onclick="openAuthModal('signin')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            <span>Sign In</span>
+          </button>
+        </div>
+
+        <!-- User Logged In Profile Badge (In-Memory) -->
+        <div class="user-profile-badge" id="navAuthLoggedIn" style="display: none;">
+          <div class="user-avatar" id="navUserInitial">A</div>
+          <span class="user-name" id="navUserName">Alex</span>
+          <button type="button" class="btn-signout" onclick="signOutUser()" title="Sign out">Sign Out</button>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="badge-pill">
+          <span>✨</span>
+          <span>100% Free • Beginner Friendly • No Experience Needed</span>
+        </div>
+        <h1 class="hero-title">
+          Learn tech from zero, <br><span class="highlight">at your own pace.</span>
+        </h1>
+        <p class="hero-lead">
+          Tech can feel intimidating with all the buzzwords and code. TechStart breaks it down into small, friendly steps with zero jargon. You can do this!
+        </p>
+        <div class="hero-actions">
+          <a href="#paths" class="btn btn-primary" style="padding: 0.85rem 1.75rem; font-size: 1.05rem;">
+            <span>Start Learning</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#preview" class="btn btn-secondary" style="padding: 0.85rem 1.5rem; font-size: 1.05rem;">
+            <span>Try a 60-Second Lesson</span>
+          </a>
+        </div>
+        <div style="margin-bottom: 2rem; font-size: 0.95rem; color: var(--text-muted);">
+          Already learning with us? <button type="button" onclick="openAuthModal('signin')" style="background: none; border: none; color: var(--primary); font-weight: 700; text-decoration: underline; cursor: pointer; font-size: inherit; font-family: inherit; padding: 0;">Sign In to your account &rarr;</button>
+        </div>
+        <div class="hero-trust-badges">
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>No math required</span>
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>Bite-sized 5-min lessons</span>
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>Runs right in your browser</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Quick Confidence Box -->
+      <div class="hero-card" aria-label="Interactive Code Preview">
+        <div class="hero-card-header">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="card-tag">Your Very First Line of Code</span>
+        </div>
+        <div class="hero-snippet">
+          <p class="code-comment">// Click 'Run Code' to send your first computer message!</p>
+          <p><span class="code-keyword">const</span> learner = <span class="code-string">"Future Tech Star"</span>;</p>
+          <p><span class="code-func">console</span>.log(<span class="code-string">"Hello, World!"</span>);</p>
+        </div>
+        <button class="hero-snippet-run-btn" id="heroRunCodeBtn" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Run Code (Try it!)</span>
+        </button>
+        <div class="hero-output-box" id="heroOutputBox">
+          🎉 <strong>Output:</strong> "Hello, World! Welcome to your tech journey!"
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Learning Paths Section -->
+  <section class="section-spacing" id="paths" style="background-color: var(--bg-surface-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Step 1: Choose a Direction</div>
+        <h2 class="section-title">Explore Beginner Learning Paths</h2>
+        <p class="section-subtitle">
+          Not sure where to begin? Pick whatever sparks your curiosity. You can switch paths anytime without losing your progress.
+        </p>
+      </div>
+
+      <div class="paths-grid">
+        <!-- 1. Web Development -->
+        <article class="path-card">
+          <div class="path-icon-wrapper" aria-hidden="true">
+            <!-- Browser Icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3 class="path-title">Web Development</h3>
+          <p class="path-desc">
+            Learn how the websites you use every day are built from scratch using HTML and CSS styling.
+          </p>
+          <div class="path-meta">
+            <span class="meta-tag difficulty">🟢 Beginner</span>
+            <span class="meta-tag time">⏱️ ~3 weeks</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+            <a href="#path-web" class="btn btn-primary" style="width: 100%;">View Full Curriculum &darr;</a>
+            <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem; padding: 0.4rem;" onclick="openPathModal('Web Development', 'Build real web pages, buttons, and layouts using simple building blocks.', ['HTML Basics: Tags & Text', 'CSS Styling: Colors & Fonts', 'Responsive Layouts for Phones', 'Publishing your first website free'])">Quick Syllabus Preview</button>
+          </div>
+        </article>
+
+        <!-- 2. Python Programming -->
+        <article class="path-card">
+          <div class="path-icon-wrapper" aria-hidden="true" style="color: #10b981; background: var(--success-light);">
+            <!-- Terminal / Code Icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"/>
+              <line x1="12" y1="19" x2="20" y2="19"/>
+            </svg>
+          </div>
+          <h3 class="path-title">Python Programming</h3>
+          <p class="path-desc">
+            Master the world's most friendly programming language for everyday automations and fun mini games.
+          </p>
+          <div class="path-meta">
+            <span class="meta-tag difficulty">🟢 Beginner</span>
+            <span class="meta-tag time">⏱️ ~4 weeks</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+            <a href="#path-python" class="btn btn-primary" style="width: 100%;">View Full Curriculum &darr;</a>
+            <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem; padding: 0.4rem;" onclick="openPathModal('Python Programming', 'Write readable commands that make repetitive daily tasks instant and effortless.', ['Variables: Storing Information', 'Conditionals: If/Else Choices', 'Loops: Doing things automatically', 'Mini Project: A friendly text adventure game'])">Quick Syllabus Preview</button>
+          </div>
+        </article>
+
+        <!-- 3. Cybersecurity Basics -->
+        <article class="path-card">
+          <div class="path-icon-wrapper" aria-hidden="true" style="color: #f59e0b; background: var(--accent-light);">
+            <!-- Shield Lock Icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="path-title">Cybersecurity Basics</h3>
+          <p class="path-desc">
+            Discover how the internet works and protect yourself, your family, and your devices from online threats.
+          </p>
+          <div class="path-meta">
+            <span class="meta-tag difficulty">🟢 Beginner</span>
+            <span class="meta-tag time">⏱️ ~2 weeks</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+            <a href="#path-cybersecurity" class="btn btn-primary" style="width: 100%;">View Full Curriculum &darr;</a>
+            <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem; padding: 0.4rem;" onclick="openPathModal('Cybersecurity Basics', 'Understand how data travels across the globe and spot online risks with confidence.', ['How Internet Networks Work', 'Passwords, 2FA & Digital Vaults', 'Spotting Phishing Traps easily', 'Safe Browsing Habits & Privacy'])">Quick Syllabus Preview</button>
+          </div>
+        </article>
+
+        <!-- 4. Data & AI Fundamentals -->
+        <article class="path-card">
+          <div class="path-icon-wrapper" aria-hidden="true" style="color: #8b5cf6; background: rgba(139, 92, 246, 0.15);">
+            <!-- Brain / Sparkles Icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+          </div>
+          <h3 class="path-title">Data &amp; AI Fundamentals</h3>
+          <p class="path-desc">
+            Demystify artificial intelligence and make sense of charts and patterns without confusing math equations.
+          </p>
+          <div class="path-meta">
+            <span class="meta-tag difficulty">🟢 Beginner</span>
+            <span class="meta-tag time">⏱️ ~3 weeks</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+            <a href="#path-ai" class="btn btn-primary" style="width: 100%;">View Full Curriculum &darr;</a>
+            <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem; padding: 0.4rem;" onclick="openPathModal('Data & AI Fundamentals', 'Learn what AI really is, how large language models think, and how data tells stories.', ['What is Data & Why Does It Matter?', 'How AI Learns from Examples', 'Writing Clear AI Prompts', 'Ethics & Using AI Responsibly'])">Quick Syllabus Preview</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- Quick Jump Navigation Pills -->
+      <div class="path-jump-nav" role="navigation" aria-label="Quick jump to dedicated path sections">
+        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-subtle);">Jump to deep-dive section:</span>
+        <a href="#path-web" class="path-jump-btn">
+          <span>🌐</span>
+          <span>Web Dev Section</span>
+        </a>
+        <a href="#path-python" class="path-jump-btn">
+          <span>🐍</span>
+          <span>Python Section</span>
+        </a>
+        <a href="#path-cybersecurity" class="path-jump-btn">
+          <span>🛡️</span>
+          <span>Cybersecurity Section</span>
+        </a>
+        <a href="#path-ai" class="path-jump-btn">
+          <span>🤖</span>
+          <span>Data &amp; AI Section</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- DEDICATED SECTION 1: WEB DEVELOPMENT -->
+  <!-- ========================================================================= -->
+  <section class="dedicated-path-section" id="path-web">
+    <div class="container">
+      <div class="path-banner theme-web">
+        <div class="path-banner-top">
+          <div class="path-heading-group">
+            <div class="path-big-icon" style="background: var(--primary-light); color: var(--primary);">🌐</div>
+            <div>
+              <div class="badge-pill" style="margin-bottom: 0.35rem;">Path 01 • Frontend &amp; Web Design</div>
+              <h2 class="path-big-title">Web Development from Scratch</h2>
+            </div>
+          </div>
+          <div class="path-stats-pills">
+            <span class="stat-pill">⏱️ ~3 Weeks</span>
+            <span class="stat-pill">📚 3 Modules (9 Lessons)</span>
+            <span class="stat-pill">🏆 1 Capstone Project</span>
+            <span class="stat-pill" style="color: var(--success); background: var(--success-light);">🟢 Zero Experience Needed</span>
+          </div>
+        </div>
+        <p class="path-banner-desc">
+          Everything you experience on the web is made of simple building blocks. In this section, you'll learn HTML to structure content, CSS to paint beautiful colors and responsive layouts, and publish your own live website for free.
+        </p>
+      </div>
+
+      <!-- Modules Breakdown Grid -->
+      <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">
+        Curriculum &amp; Lesson Modules
+      </h3>
+      <div class="modules-container">
+        <!-- Module 1 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--primary-light); color: var(--primary);">Module 1</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 1</span>
+          </div>
+          <h4 class="module-title">The Skeleton: HTML5 Foundations</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '1.1 How Web Browsers Actually Work')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.1</span>
+                <span>How Web Browsers Read Code</span>
+              </div>
+              <span class="lesson-meta">⏱️ 8 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '1.2 Headings, Paragraphs & Links')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.2</span>
+                <span>Headings, Paragraphs &amp; Links</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '1.3 Images, Lists & Clickable Buttons')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.3</span>
+                <span>Images, Lists &amp; Clickable Buttons</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Web Dev', 'Module 1 Starter')">Start Module 1</button>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--primary-light); color: var(--primary);">Module 2</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 2</span>
+          </div>
+          <h4 class="module-title">The Styling: CSS Aesthetics</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '2.1 Colors, Fonts & Google Typography')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.1</span>
+                <span>Colors &amp; Google Typography</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '2.2 The Box Model: Padding vs Margin')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.2</span>
+                <span>The Box Model Explained (Pizza Box 🍕)</span>
+              </div>
+              <span class="lesson-meta">⏱️ 14 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '2.3 Flexbox: Aligning Navigation & Cards')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.3</span>
+                <span>Flexbox: Aligning Items Effortlessly</span>
+              </div>
+              <span class="lesson-meta">⏱️ 20 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Web Dev', 'Module 2 Starter')">Start Module 2</button>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--primary-light); color: var(--primary);">Module 3</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 3</span>
+          </div>
+          <h4 class="module-title">Mobile Design &amp; Publishing</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '3.1 Media Queries: Perfect on Smart Phones')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.1</span>
+                <span>Media Queries: Phones vs Desktop</span>
+              </div>
+              <span class="lesson-meta">⏱️ 18 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '3.2 Putting your site online on GitHub Pages')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.2</span>
+                <span>Free Hosting with GitHub Pages</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Web Dev', '3.3 Accessibility: High Contrast & Alt Text')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.3</span>
+                <span>Accessibility &amp; Friendly Contrast</span>
+              </div>
+              <span class="lesson-meta">⏱️ 10 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Web Dev', 'Module 3 Starter')">Start Module 3</button>
+        </div>
+      </div>
+
+      <!-- Capstone & Interactive Micro-Tool Grid -->
+      <div class="path-interactive-grid">
+        <!-- Capstone Project Box -->
+        <div class="capstone-card">
+          <div>
+            <span class="capstone-tag" style="background: var(--primary-light); color: var(--primary);">
+              🏆 Web Dev Capstone Project
+            </span>
+            <h4 class="capstone-title">Personal "Link-in-Bio" &amp; Portfolio Page</h4>
+            <p class="capstone-desc">
+              You will build and customize your very own responsive personal homepage featuring your bio, profile avatar, social links, and a functional light/dark theme switch.
+            </p>
+            <div style="background: var(--bg-surface-subtle); padding: 1rem; border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+              ✨ <strong>Skills you'll show off:</strong> Semantic HTML5 tags, custom CSS variables, responsive flexbox layout, and live web hosting.
+            </div>
+          </div>
+          <a href="#preview" class="btn btn-primary" style="align-self: flex-start;">Try Web Code Editor &rarr;</a>
+        </div>
+
+        <!-- Interactive Web Playground: Live Card Styler -->
+        <div class="path-micro-tool">
+          <div class="tool-header">
+            <span>🎨 Live CSS Styler Sandbox</span>
+          </div>
+          <p class="tool-desc">
+            Click the buttons below to see how CSS classes dynamically transform a webpage card:
+          </p>
+
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="applyWebStyler('blue')">Ocean Blue</button>
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="applyWebStyler('emerald')">Emerald Green</button>
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="applyWebStyler('purple')">Sunset Purple</button>
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="applyWebStyler('round')">Toggle Radius</button>
+          </div>
+
+          <!-- Preview Container -->
+          <div id="webStylerPreview" style="background: #2563eb; color: white; padding: 1.5rem; border-radius: 12px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(37,99,235,0.25);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">✨ Alex's Digital Garden</div>
+            <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 1rem;">Building websites one line of code at a time.</p>
+            <button style="background: white; color: #0f172a; border: none; padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 700; cursor: pointer;" onclick="alert('CSS Magic! You just tested your styling skills!')">
+              Say Hello 👋
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- DEDICATED SECTION 2: PYTHON PROGRAMMING -->
+  <!-- ========================================================================= -->
+  <section class="dedicated-path-section" id="path-python" style="background-color: var(--bg-surface-subtle);">
+    <div class="container">
+      <div class="path-banner theme-python">
+        <div class="path-banner-top">
+          <div class="path-heading-group">
+            <div class="path-big-icon" style="background: var(--success-light); color: var(--success);">🐍</div>
+            <div>
+              <div class="badge-pill" style="margin-bottom: 0.35rem; background: var(--success-light); color: var(--success); border-color: rgba(16, 185, 129, 0.3);">
+                Path 02 • Automation &amp; Logic
+              </div>
+              <h2 class="path-big-title">Python Programming for Everyday Life</h2>
+            </div>
+          </div>
+          <div class="path-stats-pills">
+            <span class="stat-pill">⏱️ ~4 Weeks</span>
+            <span class="stat-pill">📚 3 Modules (9 Lessons)</span>
+            <span class="stat-pill">🏆 1 Capstone Project</span>
+            <span class="stat-pill" style="color: var(--success); background: var(--success-light);">🟢 Zero Experience Needed</span>
+          </div>
+        </div>
+        <p class="path-banner-desc">
+          Python is famous for reading like plain English. Learn to give step-by-step instructions to your computer, make decisions with logic, automate repetitive spreadsheets and folder sorting, and create interactive text-based games.
+        </p>
+      </div>
+
+      <!-- Modules Breakdown Grid -->
+      <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">
+        Curriculum &amp; Lesson Modules
+      </h3>
+      <div class="modules-container">
+        <!-- Module 1 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--success-light); color: var(--success);">Module 1</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 1</span>
+          </div>
+          <h4 class="module-title">Speaking the Language</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '1.1 print() and Variables: Storing Data')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.1</span>
+                <span><code>print()</code> &amp; Storing Variables</span>
+              </div>
+              <span class="lesson-meta">⏱️ 10 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '1.2 Numbers, Words & True/False Types')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.2</span>
+                <span>Data Types: Numbers &amp; Strings</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '1.3 input(): Making the Computer Ask Questions')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.3</span>
+                <span><code>input()</code>: Asking User Questions</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Python', 'Module 1 Starter')">Start Module 1</button>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--success-light); color: var(--success);">Module 2</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 2</span>
+          </div>
+          <h4 class="module-title">Decisions &amp; Repetition</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '2.1 if, elif, else: Smart Decision Trees')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.1</span>
+                <span><code>if / elif / else</code> Conditions</span>
+              </div>
+              <span class="lesson-meta">⏱️ 16 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '2.2 Loops: Doing 1,000 tasks in 1 second')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.2</span>
+                <span>Loops: <code>for</code> and <code>while</code></span>
+              </div>
+              <span class="lesson-meta">⏱️ 18 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '2.3 Lists: Storing inventories & collections')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.3</span>
+                <span>Lists: Managing Item Collections</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Python', 'Module 2 Starter')">Start Module 2</button>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--success-light); color: var(--success);">Module 3</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Weeks 3-4</span>
+          </div>
+          <h4 class="module-title">Functions &amp; Mini Tools</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '3.1 def Functions: Packaging Reusable Recipes')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.1</span>
+                <span><code>def</code> Functions: Reusable Recipes</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '3.2 Reading & Writing Text Files')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.2</span>
+                <span>Automating Files on Your Computer</span>
+              </div>
+              <span class="lesson-meta">⏱️ 14 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Python', '3.3 Friendly Error Handling: No Panic')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.3</span>
+                <span>Error Handling: Don't Panic!</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Python', 'Module 3 Starter')">Start Module 3</button>
+        </div>
+      </div>
+
+      <!-- Capstone & Interactive Micro-Tool Grid -->
+      <div class="path-interactive-grid">
+        <!-- Capstone Project Box -->
+        <div class="capstone-card">
+          <div>
+            <span class="capstone-tag" style="background: var(--success-light); color: var(--success-text);">
+              🏆 Python Capstone Project
+            </span>
+            <h4 class="capstone-title">Text Mystery Adventure &amp; Smart Bill Splitter</h4>
+            <p class="capstone-desc">
+              Write a playable text game where users explore a mysterious temple, make branching choices, and manage their health points—plus build a script that calculates dining bills and tips effortlessly.
+            </p>
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+              ✨ <strong>Skills you'll show off:</strong> Variables, while loops, conditional branches, functions, and user text sanitization.
+            </div>
+          </div>
+          <button class="btn btn-primary" style="align-self: flex-start; background: #10b981;" onclick="startSpecificLesson('Python', 'Capstone Project Blueprint')">View Python Blueprint &rarr;</button>
+        </div>
+
+        <!-- Interactive Python Logic Simulator -->
+        <div class="path-micro-tool">
+          <div class="tool-header">
+            <span>⚡ Interactive Python Logic Simulator</span>
+          </div>
+          <p class="tool-desc">
+            Change the variable below to see how Python evaluates <code>if / elif / else</code> logic:
+          </p>
+
+          <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem;">
+            <label for="pythonWeatherSelect" style="font-size: 0.88rem; font-weight: 600;">weather =</label>
+            <select id="pythonWeatherSelect" class="form-input" style="padding: 0.4rem 0.75rem; width: auto; font-family: monospace;" onchange="runPythonLogicSimulator()">
+              <option value="sunny">"sunny"</option>
+              <option value="rainy">"rainy"</option>
+              <option value="snowy">"snowy"</option>
+            </select>
+          </div>
+
+          <!-- Code Snippet -->
+          <div style="background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: var(--radius-md); font-family: monospace; font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">
+            <span style="color: #f59e0b;">if</span> weather == <span style="color: #10b981;">"sunny"</span>:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print(<span style="color: #10b981;">"Grab sunglasses &amp; code outside! ☀️"</span>)<br>
+            <span style="color: #f59e0b;">elif</span> weather == <span style="color: #10b981;">"rainy"</span>:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print(<span style="color: #10b981;">"Stay cozy with coffee &amp; code! ☕"</span>)<br>
+            <span style="color: #f59e0b;">else</span>:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print(<span style="color: #10b981;">"Put on warm boots! ❄️"</span>)
+          </div>
+
+          <!-- Console Output -->
+          <div style="background: #1e293b; color: #38bdf8; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-family: monospace; font-size: 0.88rem;" id="pythonConsoleOutput">
+            &gt; Grab sunglasses &amp; code outside! ☀️
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- DEDICATED SECTION 3: CYBERSECURITY BASICS -->
+  <!-- ========================================================================= -->
+  <section class="dedicated-path-section" id="path-cybersecurity">
+    <div class="container">
+      <div class="path-banner theme-cyber">
+        <div class="path-banner-top">
+          <div class="path-heading-group">
+            <div class="path-big-icon" style="background: var(--accent-light); color: var(--accent-text);">🛡️</div>
+            <div>
+              <div class="badge-pill" style="margin-bottom: 0.35rem; background: var(--accent-light); color: var(--accent-text); border-color: rgba(245, 158, 11, 0.3);">
+                Path 03 • Digital Defense &amp; Privacy
+              </div>
+              <h2 class="path-big-title">Cybersecurity &amp; Online Defense</h2>
+            </div>
+          </div>
+          <div class="path-stats-pills">
+            <span class="stat-pill">⏱️ ~2 Weeks</span>
+            <span class="stat-pill">📚 3 Modules (9 Lessons)</span>
+            <span class="stat-pill">🏆 1 Capstone Project</span>
+            <span class="stat-pill" style="color: var(--success); background: var(--success-light);">🟢 Zero Experience Needed</span>
+          </div>
+        </div>
+        <p class="path-banner-desc">
+          You don't need a dark hoodie to stay safe. Discover how computers send encrypted signals, how cybercriminals attempt to trick everyday users, and the simple habits that make you 99% safer than the average internet user.
+        </p>
+      </div>
+
+      <!-- Modules Breakdown Grid -->
+      <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">
+        Curriculum &amp; Lesson Modules
+      </h3>
+      <div class="modules-container">
+        <!-- Module 1 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--accent-light); color: var(--accent-text);">Module 1</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 1</span>
+          </div>
+          <h4 class="module-title">How Data Travels Safely</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '1.1 Routers, IP Addresses & Wi-Fi')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.1</span>
+                <span>Routers, IP Addresses &amp; Wi-Fi</span>
+              </div>
+              <span class="lesson-meta">⏱️ 10 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '1.2 What the Browser Padlock (HTTPS) Means')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.2</span>
+                <span>The Browser Padlock &amp; Encryption</span>
+              </div>
+              <span class="lesson-meta">⏱️ 14 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '1.3 Risks of Public Coffee Shop Wi-Fi')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.3</span>
+                <span>Public Wi-Fi: What Can Others See?</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Cybersecurity', 'Module 1 Starter')">Start Module 1</button>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--accent-light); color: var(--accent-text);">Module 2</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 2</span>
+          </div>
+          <h4 class="module-title">Passwords &amp; Human Traps</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '2.1 Why Common Passwords Get Cracked Instantly')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.1</span>
+                <span>Why Passwords Get Cracked in 0.01s</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '2.2 Password Vaults & Two-Factor Authentication (2FA)')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.2</span>
+                <span>Password Vaults &amp; 2FA Setup</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '2.3 Spotting Fake Phishing Emails with Confidence')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.3</span>
+                <span>Spotting Phishing Scams Instantly</span>
+              </div>
+              <span class="lesson-meta">⏱️ 16 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Cybersecurity', 'Module 2 Starter')">Start Module 2</button>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: var(--accent-light); color: var(--accent-text);">Module 3</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Ongoing</span>
+          </div>
+          <h4 class="module-title">Privacy &amp; Everyday Defense</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '3.1 Browser Cookies, Trackers & VPN Realities')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.1</span>
+                <span>Cookies, Trackers &amp; VPN Realities</span>
+              </div>
+              <span class="lesson-meta">⏱️ 14 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '3.2 Safe Downloads & Avoiding Malware')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.2</span>
+                <span>Safe Downloads &amp; Avoiding Malware</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Cybersecurity', '3.3 What To Do If You Suspect You Got Hacked')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.3</span>
+                <span>Emergency Action: If You Get Hacked</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Cybersecurity', 'Module 3 Starter')">Start Module 3</button>
+        </div>
+      </div>
+
+      <!-- Capstone & Interactive Micro-Tool Grid -->
+      <div class="path-interactive-grid">
+        <!-- Capstone Project Box -->
+        <div class="capstone-card">
+          <div>
+            <span class="capstone-tag" style="background: var(--accent-light); color: var(--accent-text);">
+              🏆 Cybersecurity Capstone Project
+            </span>
+            <h4 class="capstone-title">Personal Digital Security &amp; Wi-Fi Audit</h4>
+            <p class="capstone-desc">
+              Execute a guided 10-step audit of your digital footprint: check if your email was in past data breaches, configure an encrypted password vault, secure your home router, and lock down social privacy settings.
+            </p>
+            <div style="background: var(--bg-surface-subtle); padding: 1rem; border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+              ✨ <strong>Skills you'll show off:</strong> 2FA setup, threat modeling, phishing recognition, and secure backup protocols.
+            </div>
+          </div>
+          <button class="btn btn-primary" style="align-self: flex-start; background: #d97706;" onclick="startSpecificLesson('Cybersecurity', 'Personal Security Audit Guide')">Download Audit Checklist &rarr;</button>
+        </div>
+
+        <!-- Interactive Password Crack Time Simulator -->
+        <div class="path-micro-tool">
+          <div class="tool-header">
+            <span>🛡️ Live Password Strength &amp; Crack Time</span>
+          </div>
+          <p class="tool-desc">
+            Type any sample test word (never real passwords!) or pick a preset:
+          </p>
+
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+            <button class="btn btn-secondary" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" onclick="testPasswordPreset('password123')">'password123'</button>
+            <button class="btn btn-secondary" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" onclick="testPasswordPreset('Summer2024!')">'Summer2024!'</button>
+            <button class="btn btn-secondary" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" onclick="testPasswordPreset('BlueFalcon$49CoffeeDance')">'BlueFalcon$49CoffeeDance'</button>
+          </div>
+
+          <input type="text" class="form-input" id="passwordTestInput" placeholder="Type a sample password to test..." style="margin-bottom: 0.85rem;" oninput="evaluatePasswordStrength(this.value)">
+
+          <div id="passwordResultCard" style="background: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <span style="font-size: 0.85rem; font-weight: 700;">Estimated Crack Time:</span>
+              <span id="crackTimeBadge" style="font-weight: 800; font-size: 0.95rem; color: #ef4444;">&lt; 0.001 seconds ⚠️</span>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);" id="passwordTipText">
+              💡 <strong>Lesson:</strong> Short common words get guessed immediately by automated dictionary tools. Making a password longer (a multi-word passphrase) makes it nearly unbreakable!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- DEDICATED SECTION 4: DATA & AI FUNDAMENTALS -->
+  <!-- ========================================================================= -->
+  <section class="dedicated-path-section" id="path-ai" style="background-color: var(--bg-surface-subtle);">
+    <div class="container">
+      <div class="path-banner theme-ai">
+        <div class="path-banner-top">
+          <div class="path-heading-group">
+            <div class="path-big-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">🤖</div>
+            <div>
+              <div class="badge-pill" style="margin-bottom: 0.35rem; background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border-color: rgba(139, 92, 246, 0.3);">
+                Path 04 • Artificial Intelligence
+              </div>
+              <h2 class="path-big-title">Data &amp; AI Fundamentals</h2>
+            </div>
+          </div>
+          <div class="path-stats-pills">
+            <span class="stat-pill">⏱️ ~3 Weeks</span>
+            <span class="stat-pill">📚 3 Modules (9 Lessons)</span>
+            <span class="stat-pill">🏆 1 Capstone Project</span>
+            <span class="stat-pill" style="color: var(--success); background: var(--success-light);">🟢 Zero Experience Needed</span>
+          </div>
+        </div>
+        <p class="path-banner-desc">
+          AI is transforming the way the world works, and you don't need advanced mathematics to participate. Understand how machine learning models learn from data, how large language models generate human-like text, and how to write clear prompts to supercharge your daily productivity.
+        </p>
+      </div>
+
+      <!-- Modules Breakdown Grid -->
+      <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">
+        Curriculum &amp; Lesson Modules
+      </h3>
+      <div class="modules-container">
+        <!-- Module 1 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">Module 1</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 1</span>
+          </div>
+          <h4 class="module-title">What is Data Anyway?</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '1.1 From Spreadsheets to Machine Learning')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.1</span>
+                <span>From Spreadsheets to AI</span>
+              </div>
+              <span class="lesson-meta">⏱️ 10 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '1.2 Spotting Patterns Without Complex Math')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.2</span>
+                <span>Spotting Trends &amp; Outliers</span>
+              </div>
+              <span class="lesson-meta">⏱️ 14 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '1.3 Data Visuals: Telling Stories with Charts')">
+              <div class="lesson-left">
+                <span class="lesson-index">1.3</span>
+                <span>Telling Stories with Visual Charts</span>
+              </div>
+              <span class="lesson-meta">⏱️ 15 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Data & AI', 'Module 1 Starter')">Start Module 1</button>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">Module 2</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 2</span>
+          </div>
+          <h4 class="module-title">How Artificial Intelligence Learns</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '2.1 Traditional Coding vs Machine Learning')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.1</span>
+                <span>Teaching vs. Programming</span>
+              </div>
+              <span class="lesson-meta">⏱️ 14 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '2.2 Training Data: Why Examples Matter')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.2</span>
+                <span>Training Data &amp; Neural Nets</span>
+              </div>
+              <span class="lesson-meta">⏱️ 16 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '2.3 Large Language Models & Text Prediction')">
+              <div class="lesson-left">
+                <span class="lesson-index">2.3</span>
+                <span>Large Language Models (LLMs)</span>
+              </div>
+              <span class="lesson-meta">⏱️ 18 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Data & AI', 'Module 2 Starter')">Start Module 2</button>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="module-card">
+          <div class="module-header">
+            <span class="module-badge" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">Module 3</span>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle);">Week 3</span>
+          </div>
+          <h4 class="module-title">Prompt Craft &amp; Practical Use</h4>
+          <ul class="lesson-rows">
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '3.1 The 4-Step Prompt Engineering Formula')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.1</span>
+                <span>The 4-Step Prompt Formula</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '3.2 Spotting Hallucinations & Verifying Facts')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.2</span>
+                <span>Spotting AI Hallucinations</span>
+              </div>
+              <span class="lesson-meta">⏱️ 14 min</span>
+            </li>
+            <li class="lesson-row" onclick="startSpecificLesson('Data & AI', '3.3 Ethics & Using AI Responsibly')">
+              <div class="lesson-left">
+                <span class="lesson-index">3.3</span>
+                <span>Ethics &amp; Bias in Modern AI</span>
+              </div>
+              <span class="lesson-meta">⏱️ 12 min</span>
+            </li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;" onclick="startSpecificLesson('Data & AI', 'Module 3 Starter')">Start Module 3</button>
+        </div>
+      </div>
+
+      <!-- Capstone & Interactive Micro-Tool Grid -->
+      <div class="path-interactive-grid">
+        <!-- Capstone Project Box -->
+        <div class="capstone-card">
+          <div>
+            <span class="capstone-tag" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">
+              🏆 Data &amp; AI Capstone Project
+            </span>
+            <h4 class="capstone-title">Personal AI Playbook &amp; Prompt Library</h4>
+            <p class="capstone-desc">
+              Build a personalized collection of high-impact AI prompts for your daily workflow, plus analyze a real-world spreadsheet to uncover trends and visualize findings with clear charts.
+            </p>
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+              ✨ <strong>Skills you'll show off:</strong> Role-based prompt framing, output formatting, factual cross-checking, and visual data interpretation.
+            </div>
+          </div>
+          <button class="btn btn-primary" style="align-self: flex-start; background: #8b5cf6;" onclick="startSpecificLesson('Data & AI', 'AI Playbook Blueprint')">Start AI Playbook &rarr;</button>
+        </div>
+
+        <!-- Interactive AI Prompt Builder -->
+        <div class="path-micro-tool">
+          <div class="tool-header">
+            <span>🤖 Interactive AI Prompt Builder</span>
+          </div>
+          <p class="tool-desc">
+            Assemble the components of an effective AI prompt and watch the quality improve:
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-subtle);">1. Assign Role:</label>
+              <select id="promptRoleSelect" class="form-input" style="padding: 0.4rem; font-size: 0.85rem;" onchange="updateGeneratedPrompt()">
+                <option value="Patient Coding Tutor for beginners">Patient Coding Tutor</option>
+                <option value="Senior Tech Career Advisor">Senior Career Advisor</option>
+                <option value="Creative Science Explainer">Creative Science Explainer</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-subtle);">2. Topic Task:</label>
+              <select id="promptTaskSelect" class="form-input" style="padding: 0.4rem; font-size: 0.85rem;" onchange="updateGeneratedPrompt()">
+                <option value="Explain how APIs work using real world analogies">Explain how APIs work</option>
+                <option value="Break down why Python is ideal for non-tech adults">Why learn Python?</option>
+                <option value="Create a friendly 7-day study plan with 15-min daily goals">Create a 7-day study plan</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 0.85rem; font-family: monospace; font-size: 0.85rem; line-height: 1.5; color: var(--text-main); margin-bottom: 0.75rem;" id="promptOutputBox">
+            "Act as a Patient Coding Tutor for beginners. Explain how APIs work using real world analogies. Keep the explanation jargon-free, provide 3 simple examples, and end with an encouraging practice tip."
+          </div>
+
+          <button class="btn btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.82rem; align-self: flex-start;" onclick="copyPromptToClipboard()">
+            📋 Copy Formatted Prompt
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. How It Works Section -->
+  <section class="section-spacing" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Simple 3-Step Method</div>
+        <h2 class="section-title">How Learning With Us Works</h2>
+        <p class="section-subtitle">
+          No long lectures, no confusing textbooks. Just bite-sized steps that respect your busy schedule.
+        </p>
+      </div>
+
+      <div class="steps-container">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Pick a Path</h3>
+          <p class="step-text">
+            Choose any topic that excites you. You don't need a master plan or tech background to begin. Exploring is how every coder started!
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Learn in Small Lessons</h3>
+          <p class="step-text">
+            Each concept is explained in plain English and takes under 5 minutes to read. We define new words before you even have to ask.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Practice With Mini Projects</h3>
+          <p class="step-text">
+            Type code, test buttons, and build real mini projects right away. You learn by doing, not just staring at slides.
+          </p>
+        </div>
+      </div>
+
+      <!-- Reassurance Warm Banner -->
+      <div class="reassurance-callout">
+        <div class="reassurance-icon">🌱</div>
+        <div class="reassurance-text">
+          <h4>"Stuck? That's totally normal."</h4>
+          <p>
+            Even software engineers with 15 years of experience get errors and search for answers every day. When you hit a roadblock, take a breath. We give you friendly hints and gentle steps to keep moving forward.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Sample Lesson Preview Section -->
+  <section class="section-spacing" id="preview" style="background-color: var(--bg-surface-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Interactive Playground</div>
+        <h2 class="section-title">Try Your First Lesson Right Now</h2>
+        <p class="section-subtitle">
+          Experience what learning feels like. Change a word in the code editor below, or test your tech intuition with our 60-second quiz!
+        </p>
+      </div>
+
+      <div class="interactive-card">
+        <!-- Tabs Header -->
+        <div class="interactive-tabs" role="tablist">
+          <button class="tab-btn active" id="tabCodeBtn" role="tab" aria-selected="true" aria-controls="paneCode" onclick="switchLessonTab('code')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span>Live "Try It" HTML Editor</span>
+          </button>
+          <button class="tab-btn" id="tabQuizBtn" role="tab" aria-selected="false" aria-controls="paneQuiz" onclick="switchLessonTab('quiz')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Quick Confidence Quiz</span>
+          </button>
+        </div>
+
+        <!-- Tab 1: Live Code Editor -->
+        <div class="tab-pane active" id="paneCode" role="tabpanel" aria-labelledby="tabCodeBtn">
+          <div class="editor-grid">
+            <div class="editor-column">
+              <div class="editor-column-header">
+                <span>Edit HTML Below</span>
+                <span style="font-size: 0.75rem; color: var(--primary); font-weight: bold;">Updates live!</span>
+              </div>
+              <textarea class="code-editor-textarea" id="htmlEditor" aria-label="HTML Code Editor" spellcheck="false">&lt;div style="text-align: center; font-family: sans-serif; padding: 10px;"&gt;
+  &lt;h2 style="color: #2563eb; margin-bottom: 8px;"&gt;
+    Hi, I'm Alex! 👋
+  &lt;/h2&gt;
+  &lt;p style="color: #475569; margin-bottom: 16px;"&gt;
+    I just edited my very first line of HTML code!
+  &lt;/p&gt;
+  &lt;button style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;" onclick="alert('You did it! Keep shining! ⭐')"&gt;
+    Click to Celebrate! 🎉
+  &lt;/button&gt;
+&lt;/div&gt;</textarea>
+
+              <div class="editor-presets">
+                <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-subtle); align-self: center;">Quick tweaks:</span>
+                <button class="preset-chip" type="button" onclick="applyPreset('name')">Change name to "Jordan"</button>
+                <button class="preset-chip" type="button" onclick="applyPreset('green')">Make button emerald green</button>
+                <button class="preset-chip" type="button" onclick="applyPreset('reset')">Reset code</button>
+              </div>
+            </div>
+
+            <div class="editor-column">
+              <div class="editor-column-header">
+                <span>Live Browser Output</span>
+                <span style="font-size: 0.75rem; color: var(--success); font-weight: bold;">● Active Preview</span>
+              </div>
+              <div class="preview-container" id="htmlLivePreview" aria-live="polite">
+                <!-- Live HTML renders here -->
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 1.25rem; font-size: 0.88rem; color: var(--text-muted); text-align: center;">
+            💡 <strong>Hint:</strong> Try replacing <code>Alex</code> with your own name in the box on the left, and watch the preview update immediately!
+          </p>
+        </div>
+
+        <!-- Tab 2: Confidence Quiz -->
+        <div class="tab-pane" id="paneQuiz" role="tabpanel" aria-labelledby="tabQuizBtn">
+          <div class="quiz-box">
+            <div style="margin-bottom: 1rem; font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase;">
+              Question 1 of 1
+            </div>
+            <h3 class="quiz-question">
+              What is computer programming (coding) actually doing behind the scenes?
+            </h3>
+            
+            <div class="quiz-options">
+              <button class="quiz-option-btn" type="button" onclick="checkQuizAnswer(this, false, 'Hollywood myth! You don\'t need dark hoodies or hacker screens. Coding is accessible to anyone.')">
+                <span>A</span>
+                <span>Writing mysterious alien formulas that only mathematicians understand</span>
+              </button>
+              <button class="quiz-option-btn" type="button" onclick="checkQuizAnswer(this, true, 'Bingo! That\'s exactly right. Computers are super fast, but they need clear, step-by-step instructions. That\'s all code is!')">
+                <span>B</span>
+                <span>Giving friendly, step-by-step instructions for a computer to follow</span>
+              </button>
+              <button class="quiz-option-btn" type="button" onclick="checkQuizAnswer(this, false, 'Nope! While computers use electricity, coding is about logic and problem-solving, not soldering wires.')">
+                <span>C</span>
+                <span>Physically rewiring computer circuits with electricity</span>
+              </button>
+            </div>
+
+            <div class="quiz-feedback" id="quizFeedback"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Beginner Glossary Section -->
+  <section class="section-spacing" id="glossary">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Plain-English Dictionary</div>
+        <h2 class="section-title">The Jargon-Free Tech Glossary</h2>
+        <p class="section-subtitle">
+          Ever felt lost listening to tech talks? Here are 30 essential buzzwords explained in everyday plain English.
+        </p>
+      </div>
+
+      <div class="glossary-controls">
+        <div class="search-wrapper">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" class="search-input" id="glossarySearchInput" placeholder="Search any term (e.g., API, server, variable, prompt, VPN)..." aria-label="Search glossary terms">
+        </div>
+
+        <div class="glossary-filter-tags">
+          <button class="filter-btn active" data-filter="all" onclick="filterGlossary('all', this)">All (30)</button>
+          <button class="filter-btn" data-filter="Web" onclick="filterGlossary('Web', this)">Web &amp; Browsers</button>
+          <button class="filter-btn" data-filter="Basics" onclick="filterGlossary('Basics', this)">Core Coding</button>
+          <button class="filter-btn" data-filter="Systems" onclick="filterGlossary('Systems', this)">Cloud &amp; Systems</button>
+          <button class="filter-btn" data-filter="Security" onclick="filterGlossary('Security', this)">Security</button>
+          <button class="filter-btn" data-filter="AI" onclick="filterGlossary('AI', this)">Data &amp; AI</button>
+        </div>
+      </div>
+
+      <div class="glossary-grid" id="glossaryGrid">
+        <!-- 1. API -->
+        <div class="glossary-card" data-category="Web">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">API</h3>
+            <span class="glossary-cat">Web</span>
+          </div>
+          <p class="glossary-def">
+            Application Programming Interface. Think of it like a restaurant waiter: it takes your order from the app to the kitchen (server) and brings back your food (data).
+          </p>
+        </div>
+
+        <!-- 2. Browser -->
+        <div class="glossary-card" data-category="Web">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Browser</h3>
+            <span class="glossary-cat">Web</span>
+          </div>
+          <p class="glossary-def">
+            The software you use to visit the internet (like Chrome, Safari, or Firefox). It reads behind-the-scenes code and translates it into pictures and clickable text.
+          </p>
+        </div>
+
+        <!-- 3. Variable -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Variable</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A labeled storage box in computer memory that holds a piece of information, such as a player's score, an email address, or a user's name.
+          </p>
+        </div>
+
+        <!-- 4. Server -->
+        <div class="glossary-card" data-category="Systems">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Server</h3>
+            <span class="glossary-cat">Systems</span>
+          </div>
+          <p class="glossary-def">
+            A dedicated computer that stays powered on 24/7. When you visit a website, its server sends the web page files straight to your device.
+          </p>
+        </div>
+
+        <!-- 5. Bug -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Bug</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A tiny mistake or typo in computer code that causes something unexpected to happen. Tracking down and fixing these mistakes is called "debugging".
+          </p>
+        </div>
+
+        <!-- 6. Frontend -->
+        <div class="glossary-card" data-category="Web">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Frontend</h3>
+            <span class="glossary-cat">Web</span>
+          </div>
+          <p class="glossary-def">
+            The visual part of an app or website that humans interact with—the layout, buttons, colors, fonts, and animations.
+          </p>
+        </div>
+
+        <!-- 7. Backend -->
+        <div class="glossary-card" data-category="Systems">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Backend</h3>
+            <span class="glossary-cat">Systems</span>
+          </div>
+          <p class="glossary-def">
+            The engine under the hood. It handles user passwords, database lookups, payment processing, and behind-the-scenes computations.
+          </p>
+        </div>
+
+        <!-- 8. Database -->
+        <div class="glossary-card" data-category="Systems">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Database</h3>
+            <span class="glossary-cat">Systems</span>
+          </div>
+          <p class="glossary-def">
+            A super-organized digital filing cabinet where an app securely stores information long term, like user accounts, photos, and messages.
+          </p>
+        </div>
+
+        <!-- 9. Algorithm -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Algorithm</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A step-by-step recipe to solve a specific problem. If you follow steps to assemble furniture or bake chocolate chip cookies, you are following an algorithm!
+          </p>
+        </div>
+
+        <!-- 10. The Cloud -->
+        <div class="glossary-card" data-category="Systems">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Cloud</h3>
+            <span class="glossary-cat">Systems</span>
+          </div>
+          <p class="glossary-def">
+            Simply someone else's computer servers connected through the internet. Instead of keeping files on your phone, you access them remotely.
+          </p>
+        </div>
+
+        <!-- 11. Responsive Design -->
+        <div class="glossary-card" data-category="Web">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Responsive Design</h3>
+            <span class="glossary-cat">Web</span>
+          </div>
+          <p class="glossary-def">
+            The art of designing a website so it automatically rearranges itself to look fantastic on small phones, tablets, and large computer monitors.
+          </p>
+        </div>
+
+        <!-- 12. Framework -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Framework</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A pre-assembled toolkit of code created by other developers. It gives you a head start so you don't have to reinvent common wheels.
+          </p>
+        </div>
+
+        <!-- 13. Git -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Git</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A time machine for your code projects. It saves snapshots of your work so you can undo mistakes anytime and collaborate safely with teammates.
+          </p>
+        </div>
+
+        <!-- 14. Open Source -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Open Source</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            Software whose original recipe (code) is made public for anyone in the world to inspect, use, learn from, and enhance for free.
+          </p>
+        </div>
+
+        <!-- 15. IP Address -->
+        <div class="glossary-card" data-category="Security">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">IP Address</h3>
+            <span class="glossary-cat">Security</span>
+          </div>
+          <p class="glossary-def">
+            A unique digital mailing address assigned to your device on a network so other computers know where to deliver web pages and messages.
+          </p>
+        </div>
+
+        <!-- 16. Phishing -->
+        <div class="glossary-card" data-category="Security">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Phishing</h3>
+            <span class="glossary-cat">Security</span>
+          </div>
+          <p class="glossary-def">
+            A deceptive trick where scammers send fake emails pretending to be a bank or delivery service to steal private logins. Learning to spot them keeps you safe!
+          </p>
+        </div>
+
+        <!-- 17. HTML & CSS -->
+        <div class="glossary-card" data-category="Web">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">HTML &amp; CSS</h3>
+            <span class="glossary-cat">Web</span>
+          </div>
+          <p class="glossary-def">
+            The foundation of every website. HTML builds the brick walls, text, and structure; CSS paints the colors, sets the fonts, and arranges the decor.
+          </p>
+        </div>
+
+        <!-- 18. JavaScript -->
+        <div class="glossary-card" data-category="Web">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">JavaScript</h3>
+            <span class="glossary-cat">Web</span>
+          </div>
+          <p class="glossary-def">
+            The programming language that makes websites alive and interactive—handling popups, theme switches, live calculations, and button animations.
+          </p>
+        </div>
+
+        <!-- 19. Machine Learning -->
+        <div class="glossary-card" data-category="AI">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Machine Learning</h3>
+            <span class="glossary-cat">AI &amp; Data</span>
+          </div>
+          <p class="glossary-def">
+            Teaching computers through examples rather than rigid rules. For instance, feeding an algorithm 5,000 photos of cats until it learns to identify cats on its own.
+          </p>
+        </div>
+
+        <!-- 20. LLM (Large Language Model) -->
+        <div class="glossary-card" data-category="AI">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">LLM</h3>
+            <span class="glossary-cat">AI &amp; Data</span>
+          </div>
+          <p class="glossary-def">
+            Large Language Model. An advanced AI system trained on massive amounts of books, articles, and websites to understand human sentences and predict helpful answers.
+          </p>
+        </div>
+
+        <!-- 21. Prompt -->
+        <div class="glossary-card" data-category="AI">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Prompt</h3>
+            <span class="glossary-cat">AI &amp; Data</span>
+          </div>
+          <p class="glossary-def">
+            The natural-language instructions, question, or scenario you give to an AI model (like ChatGPT or Claude) to guide the answer you want.
+          </p>
+        </div>
+
+        <!-- 22. Encryption -->
+        <div class="glossary-card" data-category="Security">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Encryption</h3>
+            <span class="glossary-cat">Security</span>
+          </div>
+          <p class="glossary-def">
+            Scrambling readable information into secret gibberish that only someone with the digital key can decipher. It keeps banking and passwords secure.
+          </p>
+        </div>
+
+        <!-- 23. Two-Factor Authentication (2FA) -->
+        <div class="glossary-card" data-category="Security">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">2FA</h3>
+            <span class="glossary-cat">Security</span>
+          </div>
+          <p class="glossary-def">
+            Two-Factor Authentication. A security deadbolt: even if someone guesses your password, they can't get in without a temporary code sent to your phone.
+          </p>
+        </div>
+
+        <!-- 24. VPN (Virtual Private Network) -->
+        <div class="glossary-card" data-category="Security">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">VPN</h3>
+            <span class="glossary-cat">Security</span>
+          </div>
+          <p class="glossary-def">
+            Virtual Private Network. An encrypted digital tunnel between your device and the internet that conceals your real location and shields activity on public Wi-Fi.
+          </p>
+        </div>
+
+        <!-- 25. Boolean -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Boolean</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A data type with only two possibilities: <code>True</code> or <code>False</code>. Think of it like a light switch that can only ever be turned ON or OFF.
+          </p>
+        </div>
+
+        <!-- 26. Loop -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Loop</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A programming instruction that repeats a task automatically until a goal is reached (e.g., emailing 500 customers without doing it one by one).
+          </p>
+        </div>
+
+        <!-- 27. Function -->
+        <div class="glossary-card" data-category="Basics">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Function</h3>
+            <span class="glossary-cat">Basics</span>
+          </div>
+          <p class="glossary-def">
+            A named, reusable recipe of code. You pass in ingredients (inputs/parameters), the function runs its recipe, and it gives you back a finished dish (output).
+          </p>
+        </div>
+
+        <!-- 28. DNS (Domain Name System) -->
+        <div class="glossary-card" data-category="Systems">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">DNS</h3>
+            <span class="glossary-cat">Systems</span>
+          </div>
+          <p class="glossary-def">
+            Domain Name System. The phonebook of the internet. It translates human names like <code>google.com</code> into numeric IP addresses like <code>142.250.190.46</code>.
+          </p>
+        </div>
+
+        <!-- 29. Cache -->
+        <div class="glossary-card" data-category="Web">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">Cache</h3>
+            <span class="glossary-cat">Web</span>
+          </div>
+          <p class="glossary-def">
+            Pronounced "cash". A temporary high-speed digital memory stash where your browser saves logos and images so websites open in a split second next time.
+          </p>
+        </div>
+
+        <!-- 30. JSON -->
+        <div class="glossary-card" data-category="Systems">
+          <div class="glossary-term-header">
+            <h3 class="glossary-term">JSON</h3>
+            <span class="glossary-cat">Systems</span>
+          </div>
+          <p class="glossary-def">
+            JavaScript Object Notation. A universal, human-readable format used by apps and servers to send information back and forth using neat key/value pairs.
+          </p>
+        </div>
+      </div>
+
+      <div class="no-results-msg" id="noResultsMsg">
+        🔍 No matching terms found. Try searching for "API", "Server", or "Bug"!
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Progress Tracker Section -->
+  <section class="section-spacing" id="tracker" style="background-color: var(--bg-surface-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">In-Memory Milestone Tracker</div>
+        <h2 class="section-title">Your First Tech Milestones</h2>
+        <p class="section-subtitle">
+          Small steps add up to real skills! Tick off the items as you explore today and watch your confidence meter fill up.
+        </p>
+      </div>
+
+      <div class="tracker-card">
+        <div class="progress-bar-container">
+          <div class="progress-labels">
+            <span>Overall Progress</span>
+            <span id="progressPercent" style="color: var(--primary);">0% Completed</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="checklist" id="checklist">
+          <!-- Milestone 1 -->
+          <div class="check-item" onclick="toggleMilestone(this)" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="custom-checkbox">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="check-label">Read the hero confidence message and clicked "Run Code"</span>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="check-item" onclick="toggleMilestone(this)" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="custom-checkbox">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="check-label">Checked out the 4 learning paths and picked one that interests you</span>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="check-item" onclick="toggleMilestone(this)" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="custom-checkbox">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="check-label">Edited your first HTML line in the Live Lesson Preview</span>
+          </div>
+
+          <!-- Milestone 4 -->
+          <div class="check-item" onclick="toggleMilestone(this)" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="custom-checkbox">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="check-label">Answered the 60-second coding question correctly</span>
+          </div>
+
+          <!-- Milestone 5 -->
+          <div class="check-item" onclick="toggleMilestone(this)" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="custom-checkbox">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="check-label">Searched for a term like "API" in the beginner glossary</span>
+          </div>
+
+          <!-- Milestone 6 -->
+          <div class="check-item" onclick="toggleMilestone(this)" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="custom-checkbox">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="check-label">Took a deep breath and reminded yourself: "Everyone starts somewhere"</span>
+          </div>
+        </div>
+
+        <div class="tracker-celebration" id="trackerCelebration">
+          🎉 <strong>Amazing job!</strong> You completed every beginner milestone today! You're officially taking real steps into tech.
+        </div>
+
+        <div class="tracker-footer-actions">
+          <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;" onclick="resetMilestones()">Reset Milestones</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ Section -->
+  <section class="section-spacing" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-pill">Common Questions</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">
+          Wondering if you have what it takes? (Spoiler alert: yes, you do!) Here are clear answers to beginner doubts.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFaq(this)" aria-expanded="false">
+            <span>Do I need an expensive or powerful computer?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Not at all! Any standard laptop, desktop, or even an affordable Chromebook from the last 8 to 10 years will work wonderfully. Tech learning exercises run entirely inside your ordinary web browser with zero heavy downloads.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFaq(this)" aria-expanded="false">
+            <span>How long will it take to learn practical skills?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Just 15 to 20 minutes a day is plenty. In your very first week, you will build and personalize your first web page. Within 3 to 4 weeks of consistent bite-sized lessons, you will have completed multiple mini projects to show friends or colleagues.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFaq(this)" aria-expanded="false">
+            <span>Do I need to be a math genius or good with numbers?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              No! That is one of the most common myths in tech. Real-world programming is mostly logic, pattern recognition, and problem solving—similar to assembling LEGO bricks or following a cooking recipe. Basic arithmetic is all you will ever need to start.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFaq(this)" aria-expanded="false">
+            <span>What if I get stuck or make a mistake?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Mistakes cannot break your computer, and getting stuck is 100% normal. Every single developer searches for help every day. We provide gentle hints and plain explanations whenever an error shows up.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFaq(this)" aria-expanded="false">
+            <span>Is TechStart truly 100% free?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Yes! All four starter paths, interactive playgrounds, and glossary guides on this page are completely free forever. No credit cards, no surprise fees, and no gatekeeping.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFaq(this)" aria-expanded="false">
+            <span>Can I switch learning paths whenever I want?</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Yes! You can explore HTML today, try a Python lesson tomorrow, and read cybersecurity tips over the weekend. Curiosity has no rules here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Footer Section -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand & Warm Message -->
+        <div class="footer-brand">
+          <a href="#hero" class="logo">
+            <div class="logo-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+              </svg>
+            </div>
+            <span>TechStart</span>
+          </a>
+          <p>
+            Everyone starts somewhere. Small steps, real skills. Built with love for curious beginners everywhere.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#paths" class="footer-link">All Learning Paths</a></li>
+            <li><a href="#path-web" class="footer-link">🌐 Web Development</a></li>
+            <li><a href="#path-python" class="footer-link">🐍 Python Programming</a></li>
+            <li><a href="#path-cybersecurity" class="footer-link">🛡️ Cybersecurity Basics</a></li>
+            <li><a href="#path-ai" class="footer-link">🤖 Data &amp; AI Fundamentals</a></li>
+            <li><a href="#how-it-works" class="footer-link">How It Works</a></li>
+            <li><a href="#preview" class="footer-link">Try a Mini Lesson</a></li>
+            <li><a href="#glossary" class="footer-link">Beginner Glossary</a></li>
+            <li><a href="#tracker" class="footer-link">Your Milestones</a></li>
+            <li><a href="#faq" class="footer-link">FAQ &amp; Help</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Visual Newsletter Signup -->
+        <div>
+          <h4 class="footer-heading">Weekly Beginner Byte</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.85rem;">
+            One friendly tech tip in your inbox every Tuesday morning. Zero spam, ever.
+          </p>
+          <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+            <div class="newsletter-input-group">
+              <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="you@example.com" required aria-label="Email address for newsletter">
+              <button type="submit" class="btn btn-primary" style="padding: 0.65rem 1rem;">Join</button>
+            </div>
+            <span class="newsletter-feedback" id="newsletterFeedback">✓ You're on the list! Welcome aboard! 🎉</span>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="yearSpan">2026</span> TechStart. All rights reserved. Free learning for everyone.
+        </div>
+        <div>
+          Accessibility friendly • Plain-English guaranteed
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal for Learning Path Syllabus Preview -->
+  <div class="modal-overlay" id="pathModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closePathModal()" aria-label="Close dialog">&times;</button>
+      <div class="modal-path-title" id="modalTitle">Path Title</div>
+      <p id="modalDesc" style="color: var(--text-muted); margin-top: 0.5rem;"></p>
+      
+      <h4 style="margin-top: 1.5rem; font-size: 1rem; font-weight: 700;">What you will learn in this path:</h4>
+      <ul class="syllabus-list" id="modalSyllabusList">
+        <!-- Populated via JS -->
+      </ul>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.75rem;">
+        <button class="btn btn-secondary" onclick="closePathModal()">Close</button>
+        <button class="btn btn-primary" onclick="startLearningPath()">Begin Lesson 1</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back To Top Button -->
+  <button class="back-to-top" id="backToTopBtn" aria-label="Scroll back to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Modal for Sign In & Sign Up -->
+  <div class="modal-overlay" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+    <div class="modal-box" style="max-width: 440px;">
+      <button class="modal-close-btn" onclick="closeAuthModal()" aria-label="Close dialog">&times;</button>
+      
+      <!-- Auth Switch Tabs -->
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab-btn active" id="authTabSignIn" role="tab" aria-selected="true" onclick="switchAuthTab('signin')">
+          Sign In
+        </button>
+        <button type="button" class="auth-tab-btn" id="authTabSignUp" role="tab" aria-selected="false" onclick="switchAuthTab('signup')">
+          Create Free Account
+        </button>
+      </div>
+
+      <!-- Sign In Form -->
+      <div id="authSignInPane">
+        <h3 id="authModalTitle" style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem; color: var(--text-main);">
+          Welcome back! 👋
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Pick up your beginner journey right where you left off.
+        </p>
+
+        <!-- Social Mock Buttons -->
+        <div class="social-auth-btns">
+          <button type="button" class="social-btn" onclick="simulateSocialLogin('Google')">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span>Continue with Google</span>
+          </button>
+          <button type="button" class="social-btn" onclick="simulateSocialLogin('GitHub')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>Continue with GitHub</span>
+          </button>
+        </div>
+
+        <div class="auth-divider">or sign in with email</div>
+
+        <form onsubmit="handleAuthSubmit(event, 'signin')">
+          <div class="form-group">
+            <label class="form-label" for="signInEmail">Email address</label>
+            <input type="email" class="form-input" id="signInEmail" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label class="form-label" for="signInPassword" style="margin-bottom: 0;">Password</label>
+              <a href="javascript:void(0)" onclick="showToast('Password reset link sent to demo email!', '📧')" style="font-size: 0.8rem; color: var(--primary); text-decoration: none;">Forgot?</a>
+            </div>
+            <div class="input-with-icon">
+              <input type="password" class="form-input" id="signInPassword" placeholder="••••••••" required>
+              <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('signInPassword', this)" aria-label="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+            Sign In to TechStart
+          </button>
+        </form>
+      </div>
+
+      <!-- Create Account Form -->
+      <div id="authSignUpPane" style="display: none;">
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem; color: var(--text-main);">
+          Start Learning Free 🚀
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          No credit card needed. Save your progress and join other curious beginners.
+        </p>
+
+        <!-- Social Mock Buttons -->
+        <div class="social-auth-btns">
+          <button type="button" class="social-btn" onclick="simulateSocialLogin('Google')">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span>Sign up with Google</span>
+          </button>
+        </div>
+
+        <div class="auth-divider">or register with email</div>
+
+        <form onsubmit="handleAuthSubmit(event, 'signup')">
+          <div class="form-group">
+            <label class="form-label" for="signUpName">Your Name</label>
+            <input type="text" class="form-input" id="signUpName" placeholder="e.g. Alex" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signUpEmail">Email address</label>
+            <input type="email" class="form-input" id="signUpEmail" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signUpPassword">Choose Password</label>
+            <div class="input-with-icon">
+              <input type="password" class="form-input" id="signUpPassword" placeholder="At least 6 characters" minlength="6" required>
+              <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('signUpPassword', this)" aria-label="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+            Create Free Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="appToast" role="alert" aria-live="assertive">
+    <span id="toastIcon">🎉</span>
+    <span id="toastMessage">Welcome back!</span>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Set Current Year in Footer
+    document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
+    // Segmented Theme Mode Management (Light / Dark)
+    const themeLightBtn = document.getElementById('themeLightBtn');
+    const themeDarkBtn = document.getElementById('themeDarkBtn');
+
+    function setThemeMode(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeDarkBtn.classList.add('active');
+        themeDarkBtn.setAttribute('aria-checked', 'true');
+        themeLightBtn.classList.remove('active');
+        themeLightBtn.setAttribute('aria-checked', 'false');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeLightBtn.classList.add('active');
+        themeLightBtn.setAttribute('aria-checked', 'true');
+        themeDarkBtn.classList.remove('active');
+        themeDarkBtn.setAttribute('aria-checked', 'false');
+      }
+      localStorage.setItem('techstart_theme', theme);
+    }
+
+    // Auto-detect or retrieve stored preference
+    const storedTheme = localStorage.getItem('techstart_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (storedTheme) {
+      setThemeMode(storedTheme);
+    } else if (prefersDark) {
+      setThemeMode('dark');
+    } else {
+      setThemeMode('light');
+    }
+
+    // Mobile Navigation Drawer Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('is-open');
+      mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    function closeMobileMenu() {
+      navLinks.classList.remove('is-open');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Back to top button visibility
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    // Hero Run Code Button
+    const heroRunCodeBtn = document.getElementById('heroRunCodeBtn');
+    const heroOutputBox = document.getElementById('heroOutputBox');
+    heroRunCodeBtn.addEventListener('click', () => {
+      heroOutputBox.style.display = 'block';
+      heroRunCodeBtn.innerHTML = '<span>✓ Code Executed Successfully!</span>';
+      heroRunCodeBtn.style.background = 'var(--success)';
+      setTimeout(() => {
+        heroRunCodeBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Run Code (Try it!)</span>';
+        heroRunCodeBtn.style.background = 'var(--primary)';
+      }, 3000);
+    });
+
+    // Interactive Sample Lesson: Live HTML Editor
+    const htmlEditor = document.getElementById('htmlEditor');
+    const htmlLivePreview = document.getElementById('htmlLivePreview');
+
+    function updateLivePreview() {
+      // Create a sandboxed iframe or shadow container for safe rendering
+      htmlLivePreview.innerHTML = htmlEditor.value;
+    }
+
+    htmlEditor.addEventListener('input', updateLivePreview);
+    // Initial Render
+    updateLivePreview();
+
+    const initialCode = htmlEditor.value;
+
+    function applyPreset(type) {
+      if (type === 'name') {
+        htmlEditor.value = htmlEditor.value.replace(/Hi, I'm [^!]+!/g, "Hi, I'm Jordan! 🚀");
+      } else if (type === 'green') {
+        htmlEditor.value = htmlEditor.value.replace(/background: #2563eb;/g, 'background: #10b981;');
+      } else if (type === 'reset') {
+        htmlEditor.value = initialCode;
+      }
+      updateLivePreview();
+    }
+
+    // Interactive Tabs (Editor vs Quiz)
+    function switchLessonTab(tab) {
+      const codeBtn = document.getElementById('tabCodeBtn');
+      const quizBtn = document.getElementById('tabQuizBtn');
+      const paneCode = document.getElementById('paneCode');
+      const paneQuiz = document.getElementById('paneQuiz');
+
+      if (tab === 'code') {
+        codeBtn.classList.add('active');
+        codeBtn.setAttribute('aria-selected', 'true');
+        quizBtn.classList.remove('active');
+        quizBtn.setAttribute('aria-selected', 'false');
+        paneCode.classList.add('active');
+        paneQuiz.classList.remove('active');
+      } else {
+        quizBtn.classList.add('active');
+        quizBtn.setAttribute('aria-selected', 'true');
+        codeBtn.classList.remove('active');
+        codeBtn.setAttribute('aria-selected', 'false');
+        paneQuiz.classList.add('active');
+        paneCode.classList.remove('active');
+      }
+    }
+
+    // Confidence Quiz Logic
+    function checkQuizAnswer(button, isCorrect, explanation) {
+      const options = button.parentElement.querySelectorAll('.quiz-option-btn');
+      const feedback = document.getElementById('quizFeedback');
+
+      options.forEach(opt => {
+        opt.disabled = true;
+        opt.classList.remove('correct', 'wrong');
+      });
+
+      if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.display = 'block';
+        feedback.style.background = 'var(--success-light)';
+        feedback.style.color = 'var(--success-text)';
+        feedback.style.border = '1px solid var(--success)';
+        feedback.innerHTML = `🌟 <strong>Spot on!</strong> ${explanation}`;
+      } else {
+        button.classList.add('wrong');
+        feedback.style.display = 'block';
+        feedback.style.background = 'var(--danger-light)';
+        feedback.style.color = '#991b1b';
+        feedback.style.border = '1px solid var(--danger)';
+        feedback.innerHTML = `💭 <strong>Not quite:</strong> ${explanation} <br><button onclick="resetQuiz()" class="btn btn-secondary" style="margin-top: 8px; padding: 4px 10px; font-size: 0.8rem;">Try again</button>`;
+      }
+    }
+
+    function resetQuiz() {
+      const options = document.querySelectorAll('.quiz-option-btn');
+      const feedback = document.getElementById('quizFeedback');
+      options.forEach(opt => {
+        opt.disabled = false;
+        opt.classList.remove('correct', 'wrong');
+      });
+      feedback.style.display = 'none';
+    }
+
+    // Beginner Glossary Search & Filter
+    const glossarySearchInput = document.getElementById('glossarySearchInput');
+    const glossaryCards = document.querySelectorAll('.glossary-card');
+    const noResultsMsg = document.getElementById('noResultsMsg');
+    let currentFilter = 'all';
+
+    function filterGlossary(filterName, btn) {
+      currentFilter = filterName;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      applyGlossaryFilters();
+    }
+
+    function applyGlossaryFilters() {
+      const query = glossarySearchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      glossaryCards.forEach(card => {
+        const term = card.querySelector('.glossary-term').textContent.toLowerCase();
+        const def = card.querySelector('.glossary-def').textContent.toLowerCase();
+        const category = card.getAttribute('data-category');
+
+        const matchesSearch = term.includes(query) || def.includes(query);
+        const matchesCategory = currentFilter === 'all' || category === currentFilter;
+
+        if (matchesSearch && matchesCategory) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    glossarySearchInput.addEventListener('input', applyGlossaryFilters);
+
+    // In-Memory Progress Tracker
+    const checkItems = document.querySelectorAll('.check-item');
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+    const trackerCelebration = document.getElementById('trackerCelebration');
+
+    function updateProgress() {
+      const total = checkItems.length;
+      let completedCount = 0;
+
+      checkItems.forEach(item => {
+        if (item.classList.contains('completed')) {
+          completedCount++;
+        }
+      });
+
+      const percent = Math.round((completedCount / total) * 100);
+      progressFill.style.width = percent + '%';
+      progressPercent.textContent = percent + '% Completed';
+
+      if (percent === 100) {
+        trackerCelebration.style.display = 'block';
+      } else {
+        trackerCelebration.style.display = 'none';
+      }
+    }
+
+    function toggleMilestone(item) {
+      const isCompleted = item.classList.toggle('completed');
+      item.setAttribute('aria-checked', isCompleted);
+      updateProgress();
+    }
+
+    // Keyboard support for checkboxes
+    checkItems.forEach(item => {
+      item.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          toggleMilestone(item);
+        }
+      });
+    });
+
+    function resetMilestones() {
+      checkItems.forEach(item => {
+        item.classList.remove('completed');
+        item.setAttribute('aria-checked', 'false');
+      });
+      updateProgress();
+    }
+
+    // FAQ Accordion
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      const isOpen = item.classList.contains('open');
+
+      // Close all other FAQs for accordion feel
+      document.querySelectorAll('.faq-item').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-question-btn').setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Newsletter Visual Feedback
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const feedback = document.getElementById('newsletterFeedback');
+      feedback.style.display = 'block';
+      document.getElementById('newsletterEmail').value = '';
+      setTimeout(() => {
+        feedback.style.display = 'none';
+      }, 5000);
+    }
+
+    // Learning Path Modal
+    const pathModal = document.getElementById('pathModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalSyllabusList = document.getElementById('modalSyllabusList');
+
+    function openPathModal(title, desc, syllabus) {
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc;
+      modalSyllabusList.innerHTML = syllabus.map((item, idx) => `
+        <li class="syllabus-item">
+          <span class="syllabus-num">${idx + 1}</span>
+          <span>${item}</span>
+        </li>
+      `).join('');
+      pathModal.classList.add('is-open');
+    }
+
+    function closePathModal() {
+      pathModal.classList.remove('is-open');
+    }
+
+    function startLearningPath() {
+      closePathModal();
+      // Scroll to preview interactive playground
+      const previewSection = document.getElementById('preview');
+      previewSection.scrollIntoView({ behavior: 'smooth' });
+      // Tick milestone 2 automatically if not already
+      if (!checkItems[1].classList.contains('completed')) {
+        toggleMilestone(checkItems[1]);
+      }
+    }
+
+    // Specific Lesson Starter
+    function startSpecificLesson(pathName, lessonName) {
+      showToast(`Selected: ${lessonName} (${pathName})! ⭐`, '🚀');
+      if (!checkItems[1].classList.contains('completed')) {
+        toggleMilestone(checkItems[1]);
+      }
+    }
+
+    // Web Styler Micro-Tool
+    function applyWebStyler(theme) {
+      const preview = document.getElementById('webStylerPreview');
+      if (!preview) return;
+      if (theme === 'blue') {
+        preview.style.background = '#2563eb';
+        preview.style.boxShadow = '0 4px 12px rgba(37,99,235,0.25)';
+      } else if (theme === 'emerald') {
+        preview.style.background = '#10b981';
+        preview.style.boxShadow = '0 4px 12px rgba(16,185,129,0.25)';
+      } else if (theme === 'purple') {
+        preview.style.background = '#8b5cf6';
+        preview.style.boxShadow = '0 4px 12px rgba(139,92,246,0.25)';
+      } else if (theme === 'round') {
+        if (preview.style.borderRadius === '9999px') {
+          preview.style.borderRadius = '12px';
+        } else {
+          preview.style.borderRadius = '9999px';
+        }
+      }
+    }
+
+    // Python Logic Simulator
+    function runPythonLogicSimulator() {
+      const weatherSelect = document.getElementById('pythonWeatherSelect');
+      const output = document.getElementById('pythonConsoleOutput');
+      if (!weatherSelect || !output) return;
+      const weather = weatherSelect.value;
+      if (weather === 'sunny') {
+        output.textContent = '> Grab sunglasses & code outside! ☀️';
+      } else if (weather === 'rainy') {
+        output.textContent = '> Stay cozy with coffee & code! ☕';
+      } else {
+        output.textContent = '> Put on warm boots! ❄️';
+      }
+    }
+
+    // Cybersecurity Password Strength Checker
+    function testPasswordPreset(preset) {
+      const input = document.getElementById('passwordTestInput');
+      if (!input) return;
+      input.value = preset;
+      evaluatePasswordStrength(preset);
+    }
+
+    function evaluatePasswordStrength(val) {
+      const badge = document.getElementById('crackTimeBadge');
+      const tip = document.getElementById('passwordTipText');
+      if (!badge || !tip) return;
+      const length = val ? val.length : 0;
+
+      if (!val) {
+        badge.textContent = '< 0.001 seconds ⚠️';
+        badge.style.color = '#ef4444';
+        tip.innerHTML = '💡 <strong>Lesson:</strong> Short common words get guessed immediately by automated dictionary tools.';
+        return;
+      }
+
+      if (length < 8) {
+        badge.textContent = 'Instant crack ⚠️';
+        badge.style.color = '#ef4444';
+        tip.innerHTML = '⚠️ <strong>Too short!</strong> Computers can try trillions of 6-7 letter combinations in seconds.';
+      } else if (length < 12) {
+        badge.textContent = '~3 to 14 days 🟡';
+        badge.style.color = '#f59e0b';
+        tip.innerHTML = '🟡 <strong>Moderate!</strong> Adding more words or symbols multiplies the difficulty exponentially.';
+      } else if (length < 16) {
+        badge.textContent = '~2,500 Years! 🟢';
+        badge.style.color = '#10b981';
+        tip.innerHTML = '🟢 <strong>Strong!</strong> A hacker would need millennia of computing power to crack this passphrase.';
+      } else {
+        badge.textContent = '3.8 Trillion Years! 🛡️';
+        badge.style.color = '#10b981';
+        tip.innerHTML = '🛡️ <strong>Bulletproof!</strong> Longer passphrases are virtually impossible for supercomputers to break.';
+      }
+    }
+
+    // Data & AI Prompt Builder
+    function updateGeneratedPrompt() {
+      const roleSelect = document.getElementById('promptRoleSelect');
+      const taskSelect = document.getElementById('promptTaskSelect');
+      const box = document.getElementById('promptOutputBox');
+      if (!roleSelect || !taskSelect || !box) return;
+      const role = roleSelect.value;
+      const task = taskSelect.value;
+      box.textContent = `"Act as a ${role}. ${task}. Please provide 3 clear, jargon-free examples, highlight key takeaways with emojis, and conclude with an encouraging next step for a beginner."`;
+    }
+
+    function copyPromptToClipboard() {
+      const box = document.getElementById('promptOutputBox');
+      if (!box) return;
+      navigator.clipboard.writeText(box.textContent).then(() => {
+        showToast('Prompt copied to clipboard! Ready to paste into ChatGPT or Claude! 📋', '✨');
+      }).catch(() => {
+        showToast('Prompt copied! 📋', '✨');
+      });
+    }
+
+    // Auth Modal & State Management
+    const authModal = document.getElementById('authModal');
+    const authTabSignIn = document.getElementById('authTabSignIn');
+    const authTabSignUp = document.getElementById('authTabSignUp');
+    const authSignInPane = document.getElementById('authSignInPane');
+    const authSignUpPane = document.getElementById('authSignUpPane');
+    const navAuthLoggedOut = document.getElementById('navAuthLoggedOut');
+    const navAuthLoggedIn = document.getElementById('navAuthLoggedIn');
+    const navUserName = document.getElementById('navUserName');
+    const navUserInitial = document.getElementById('navUserInitial');
+    const appToast = document.getElementById('appToast');
+    const toastMessage = document.getElementById('toastMessage');
+    const toastIcon = document.getElementById('toastIcon');
+    let toastTimeout;
+
+    function openAuthModal(mode) {
+      switchAuthTab(mode || 'signin');
+      authModal.classList.add('is-open');
+      setTimeout(() => {
+        if (mode === 'signup') {
+          const nameInput = document.getElementById('signUpName');
+          if (nameInput) nameInput.focus();
+        } else {
+          const emailInput = document.getElementById('signInEmail');
+          if (emailInput) emailInput.focus();
+        }
+      }, 100);
+    }
+
+    function closeAuthModal() {
+      authModal.classList.remove('is-open');
+    }
+
+    function switchAuthTab(tab) {
+      if (tab === 'signin') {
+        authTabSignIn.classList.add('active');
+        authTabSignIn.setAttribute('aria-selected', 'true');
+        authTabSignUp.classList.remove('active');
+        authTabSignUp.setAttribute('aria-selected', 'false');
+        authSignInPane.style.display = 'block';
+        authSignUpPane.style.display = 'none';
+      } else {
+        authTabSignUp.classList.add('active');
+        authTabSignUp.setAttribute('aria-selected', 'true');
+        authTabSignIn.classList.remove('active');
+        authTabSignIn.setAttribute('aria-selected', 'false');
+        authSignUpPane.style.display = 'block';
+        authSignInPane.style.display = 'none';
+      }
+    }
+
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+        btn.setAttribute('aria-label', 'Hide password');
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁️';
+        btn.setAttribute('aria-label', 'Show password');
+      }
+    }
+
+    function setLoggedInUser(name) {
+      const displayName = name || 'Learner';
+      navUserName.textContent = displayName;
+      navUserInitial.textContent = displayName.charAt(0).toUpperCase();
+      navAuthLoggedOut.style.display = 'none';
+      navAuthLoggedIn.style.display = 'flex';
+      localStorage.setItem('techstart_user', displayName);
+    }
+
+    function signOutUser() {
+      navAuthLoggedIn.style.display = 'none';
+      navAuthLoggedOut.style.display = 'flex';
+      localStorage.removeItem('techstart_user');
+      showToast('You have been signed out safely. Come back anytime!', '👋');
+    }
+
+    function handleAuthSubmit(event, mode) {
+      event.preventDefault();
+      let name = 'Alex';
+      if (mode === 'signup') {
+        name = document.getElementById('signUpName').value.trim() || 'Alex';
+      } else {
+        const email = document.getElementById('signInEmail').value.trim();
+        name = email.split('@')[0] || 'Alex';
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+      }
+      setLoggedInUser(name);
+      closeAuthModal();
+      showToast(`Welcome ${mode === 'signup' ? 'to TechStart' : 'back'}, ${name}! 🎉`, '🌟');
+    }
+
+    function simulateSocialLogin(provider) {
+      const name = 'Alex';
+      setLoggedInUser(name);
+      closeAuthModal();
+      showToast(`Signed in with ${provider} as ${name}! Welcome! 👋`, '🚀');
+    }
+
+    function showToast(msg, icon) {
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastMessage.textContent = msg;
+      toastIcon.textContent = icon || '🎉';
+      appToast.classList.add('show');
+      toastTimeout = setTimeout(() => {
+        appToast.classList.remove('show');
+      }, 4000);
+    }
+
+    // Check if user was previously signed in
+    const savedUser = localStorage.getItem('techstart_user');
+    if (savedUser) {
+      setLoggedInUser(savedUser);
+    }
+
+    // Close modals on click outside
+    window.addEventListener('click', (e) => {
+      if (e.target === pathModal) {
+        closePathModal();
+      }
+      if (e.target === authModal) {
+        closeAuthModal();
+      }
+    });
+
+    // Close modals on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (pathModal.classList.contains('is-open')) closePathModal();
+        if (authModal.classList.contains('is-open')) closeAuthModal();
+      }
+    });
+  <!-- ===== AI Chat Widget (Ollama gemma3:1b) ===== -->
+  <!-- Floating action button -->
+  <button class="ai-chat-fab" id="aiChatFab" aria-label="Open AI Tutor Chat" onclick="toggleAiChat()">
+    🤖
+    <span class="fab-badge" id="aiFabBadge" style="display:none">1</span>
+  </button>
+
+  <!-- Chat panel -->
+  <div class="ai-chat-panel" id="aiChatPanel" role="dialog" aria-label="TechStart AI Tutor" aria-modal="true">
+    <!-- Header -->
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-avatar">🤖</div>
+      <div class="ai-chat-header-info">
+        <div class="ai-chat-header-name">TechStart AI Tutor</div>
+        <div class="ai-chat-header-status">gemma3:1b · Online</div>
+      </div>
+      <button class="ai-chat-close-btn" aria-label="Close AI chat" onclick="toggleAiChat()">✕</button>
+    </div>
+
+    <!-- Messages -->
+    <div class="ai-chat-messages" id="aiChatMessages"></div>
+
+    <!-- Quick suggestions (shown only at start) -->
+    <div class="ai-chat-suggestions" id="aiChatSuggestions">
+      <button class="ai-chat-suggestion-btn" onclick="sendSuggestion('What is HTML?')">What is HTML?</button>
+      <button class="ai-chat-suggestion-btn" onclick="sendSuggestion('How does Python work?')">How does Python work?</button>
+      <button class="ai-chat-suggestion-btn" onclick="sendSuggestion('What is a VPN?')">What is a VPN?</button>
+      <button class="ai-chat-suggestion-btn" onclick="sendSuggestion('Explain AI in simple terms')">Explain AI simply</button>
+    </div>
+
+    <!-- Input row -->
+    <div class="ai-chat-input-row">
+      <textarea
+        id="aiChatInput"
+        class="ai-chat-textarea"
+        placeholder="Ask anything about tech…"
+        rows="1"
+        aria-label="Your message"
+        onkeydown="handleChatKey(event)"
+        oninput="autoResizeTextarea(this)"
+      ></textarea>
+      <button class="ai-chat-send-btn" id="aiChatSendBtn" aria-label="Send message" onclick="sendChatMessage()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ai-chat-model-tag">Powered by Ollama · gemma3:1b · runs locally 🔒</div>
+  </div>
+
+  <script>
+    /* ---- AI Chat Widget JS ---- */
+    const aiChatHistory  = [];   // [{role, content}, ...]
+    let   aiChatOpen     = false;
+    let   aiChatTyping   = false;
+    let   aiBadgeCount   = 0;
+
+    const aiPanel        = document.getElementById('aiChatPanel');
+    const aiMessages     = document.getElementById('aiChatMessages');
+    const aiInput        = document.getElementById('aiChatInput');
+    const aiSendBtn      = document.getElementById('aiChatSendBtn');
+    const aiSuggestions  = document.getElementById('aiChatSuggestions');
+    const aiFabBadge     = document.getElementById('aiFabBadge');
+
+    // Greet on first open
+    let aiGreeted = false;
+    function ensureGreeting() {
+      if (aiGreeted) return;
+      aiGreeted = true;
+      appendBotMessage("👋 Hi there! I'm TechStart AI, your personal coding tutor powered by **gemma3:1b** running locally on your machine. Ask me anything about web development, Python, cybersecurity, or AI — no question is too basic!");
+    }
+
+    function toggleAiChat() {
+      aiChatOpen = !aiChatOpen;
+      if (aiChatOpen) {
+        aiPanel.classList.add('is-open');
+        ensureGreeting();
+        resetBadge();
+        setTimeout(() => aiInput.focus(), 220);
+      } else {
+        aiPanel.classList.remove('is-open');
+      }
+    }
+
+    function resetBadge() {
+      aiBadgeCount = 0;
+      aiFabBadge.style.display = 'none';
+    }
+    function bumpBadge() {
+      if (aiChatOpen) return;
+      aiBadgeCount++;
+      aiFabBadge.textContent = aiBadgeCount;
+      aiFabBadge.style.display = 'flex';
+    }
+
+    function appendBotMessage(md, isError = false) {
+      const msg = buildMsgEl('bot', md, isError);
+      aiMessages.appendChild(msg);
+      scrollChat();
+      if (!aiChatOpen) bumpBadge();
+    }
+    function appendUserMessage(text) {
+      const msg = buildMsgEl('user', text);
+      aiMessages.appendChild(msg);
+      scrollChat();
+    }
+
+    function buildMsgEl(role, text, isError = false) {
+      const wrap = document.createElement('div');
+      wrap.className = 'chat-msg ' + (isError ? 'error' : role);
+
+      const avatar = document.createElement('div');
+      avatar.className = 'chat-msg-avatar';
+      avatar.textContent = role === 'bot' ? '🤖' : '👤';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-msg-bubble';
+      // Minimal markdown: bold (**text**) and line-breaks
+      bubble.innerHTML = text
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+
+      wrap.appendChild(avatar);
+      wrap.appendChild(bubble);
+      return wrap;
+    }
+
+    function showTyping() {
+      const wrap = document.createElement('div');
+      wrap.className = 'chat-msg bot chat-typing-indicator';
+      wrap.id = 'aiTypingIndicator';
+      const avatar = document.createElement('div');
+      avatar.className = 'chat-msg-avatar';
+      avatar.textContent = '🤖';
+      const dots = document.createElement('div');
+      dots.className = 'chat-typing-dots';
+      dots.innerHTML = '<span></span><span></span><span></span>';
+      wrap.appendChild(avatar);
+      wrap.appendChild(dots);
+      aiMessages.appendChild(wrap);
+      scrollChat();
+    }
+    function hideTyping() {
+      const el = document.getElementById('aiTypingIndicator');
+      if (el) el.remove();
+    }
+
+    function scrollChat() {
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+
+    function autoResizeTextarea(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+    }
+
+    function handleChatKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChatMessage();
+      }
+    }
+
+    function sendSuggestion(text) {
+      aiInput.value = text;
+      sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+      const text = aiInput.value.trim();
+      if (!text || aiChatTyping) return;
+
+      // Hide suggestions after first real message
+      aiSuggestions.style.display = 'none';
+
+      // Display user message
+      appendUserMessage(text);
+      aiChatHistory.push({ role: 'user', content: text });
+
+      // Clear input
+      aiInput.value = '';
+      aiInput.style.height = 'auto';
+
+      // Lock UI
+      aiChatTyping = true;
+      aiSendBtn.disabled = true;
+      showTyping();
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text,
+            history: aiChatHistory.slice(0, -1)   // exclude the one we just added as 'message'
+          })
+        });
+        const data = await res.json();
+        hideTyping();
+
+        if (data.success && data.reply) {
+          appendBotMessage(data.reply);
+          aiChatHistory.push({ role: 'assistant', content: data.reply });
+          // Keep history bounded to last 20 turns to avoid huge payloads
+          if (aiChatHistory.length > 40) aiChatHistory.splice(0, 2);
+        } else {
+          appendBotMessage(data.error || 'Something went wrong. Please try again.', true);
+        }
+      } catch (err) {
+        hideTyping();
+        appendBotMessage('⚠️ Could not reach the AI tutor. Make sure the server is running and Ollama is active (`ollama serve`).', true);
+      } finally {
+        aiChatTyping = false;
+        aiSendBtn.disabled = false;
+        aiInput.focus();
+      }
+    }
+
+    // Close chat panel when clicking outside it
+    document.addEventListener('click', (e) => {
+      if (aiChatOpen
+          && !aiPanel.contains(e.target)
+          && !document.getElementById('aiChatFab').contains(e.target)) {
+        toggleAiChat();
+      }
+    });
+
+    // Escape key closes chat
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && aiChatOpen) toggleAiChat();
+    });
+  </script>
+
+</body>
+</html>
